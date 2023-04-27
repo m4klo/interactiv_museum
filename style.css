@@ -1,5 +1,6 @@
 body {
-    background-image: url("");
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
+  background-image: url('shutterstock_342456149.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* opcjonalnie */
+}

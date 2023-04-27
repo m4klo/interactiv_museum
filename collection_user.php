@@ -3,13 +3,18 @@
 require_once 'connect.php';
 
 // Retrieve photo paths
-$query = "SELECT picture_link FROM painting";
+$query = "SELECT p.title, p.picture_link, a.name AS author_name
+FROM painting p
+JOIN author a ON p.id_author = a.id";
 $result = mysqli_query($conn, $query);
 
 // Store the photo paths in an array
 $photos = array();
 while ($row = mysqli_fetch_assoc($result)) {
-    $photos[] = $row['picture_link'];
+    $title= $row['title'];
+    $author = $row['author_name'];
+    $picture = $row['picture_link'];
+    $photos[] = array('title' => $title, 'picture_link' => $picture, 'author_name' => $author);
 }
 
 $query = "SELECT name FROM author";
@@ -23,17 +28,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 $query = "SELECT name FROM style";
 $result = mysqli_query($conn, $query);
 
-$style = array();
+$styles = array();
 while ($row = mysqli_fetch_assoc($result)) {
-    $style[] = $row['name'];
+    $styles[] = $row['name'];
 }
 
 $query = "SELECT name FROM location";
 $result = mysqli_query($conn, $query);
 
-$location = array();
+$locations = array();
 while ($row = mysqli_fetch_assoc($result)) {
-    $location[] = $row['name'];
+    $locations[] = $row['name'];
 }
 
 ?>
@@ -54,7 +59,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     $(".image-link").click(function(e) {
         e.preventDefault();
         var src = $(this).find("img").attr("src");
+        var title = $(this).data("title");
+        var author = $(this).data("author");
         $("#myModal-content").attr("src", src);
+        $("#myModal-title").text(title);
+        $("#myModal-author").text(author);
         $("#myModal").fadeIn();
         $("#backButton").fadeIn();
     });
@@ -140,7 +149,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <div class="modal-body">
             <?php
-            foreach ($location as $location) {
+            foreach ($locations as $location) {
                 echo '<div class="form-check">';
                 echo '<input class="form-check-input" type="checkbox" value="' . $location . '" id="' . $location . '">';
                 echo '<label class="form-check-label" for="' . $location . '">';
@@ -162,12 +171,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="styleModalLabel">Wybierz autora</h5>
+            <h5 class="modal-title" id="styleModalLabel">Wybierz styl</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <?php
-            foreach ($style as $style) {
+            foreach ($styles as $style) {
                 echo '<div class="form-check">';
                 echo '<input class="form-check-input" type="checkbox" value="' . $author . '" id="' . $author . '">';
                 echo '<label class="form-check-label" for="' . $author . '">';
@@ -185,26 +194,28 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>
     </div>
     <div class="container mt-5">    
-        <div id="gallery" class="row">
-            <?php
-                shuffle($photos); // losowo mieszamy tablicę zdjęć
-                $photoIndex = 0;
-                for ($i = 0; $i < 6; $i++) {
-                    echo '<div class="col-md-' . 2 . '">';
-                    for ($j = 0; $j < 2; $j++) {
-                        if ($photoIndex >= count($photos)) break;
-                        $photo = $photos[$photoIndex];
-                        echo '<div class="mb-4">';
-                        echo '<a href="' . $photo . '" class="image-link">';
-                        echo '<img src="' . $photo . '" class="img-thumbnail">';
-                        echo '</a>';
-                        echo '</div>';
-                        $photoIndex++;
-                    }
+    <div id="gallery" class="row">
+        <?php
+            shuffle($photos); // losowo mieszamy tablicę zdjęć
+            $photoIndex = 0;
+            for ($i = 0; $i < 6; $i++) {
+                echo '<div class="col-md-' . 2 . '">';
+                for ($j = 0; $j < 2; $j++) {
+                    if ($photoIndex >= count($photos)) break;
+                    $photo = $photos[$photoIndex];
+                    echo '<div class="mb-4">';
+                    echo '<a href="' . $photo['picture_link'] . '" class="image-link" data-title="' . $photo['title'] . '" data-author="' . $photo['author_name'] . '">';
+                    echo '<img src="' . $photo['picture_link'] . '" class="img-thumbnail" alt="' . $photo['title'] . '">';
+                    echo '</a>';
                     echo '</div>';
+                    $photoIndex++;
                 }
-            ?>
-        </div>
+                echo '</div>';
+            }
+        ?>
+    </div>
+</div>
+
 
     </div>
 
@@ -212,6 +223,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     <div id="myModal">
         <span id="myModal-close">&times;</span>
         <img id="myModal-content" />
+        <h4 id="myModal-title"></h4>
+        <h5 id="myModal-author"></h5>   
     </div>
 
 
