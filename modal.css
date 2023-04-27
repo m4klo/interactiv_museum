@@ -1,0 +1,41 @@
+#myModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+/* Stylizacja zawartości modalnego okna */
+#myModal-content {
+    position: absolute;
+    left: 5%;
+    padding-top: 7.5%;
+    margin: auto;
+    display: block;
+    height: 85%;
+    max-width:60%;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+/* Animacja powiększania zawartości modalnego okna */
+@keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+/* Przycisk "Zamknij" */
+#myModal-close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-right: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+#myModal-close:hover {
+    color: #bbb;
+}
