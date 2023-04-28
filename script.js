@@ -47,3 +47,28 @@ $(document).ready(function() {
       $('#styleModal').modal('hide');
     });
   });
+
+  function applyFilters() {
+    var selectedAuthors = $('input.form-check-input:checked').map(function(){
+        return $(this).val();
+    }).get();
+    generateGallery(); // przekazuje wybrane wartości do funkcji
+}
+
+
+  function generateGallery() {
+    var selectedAuthors = $('input[name="author[]"]:checked').map(function(){
+      return $(this).val();
+    }).get();
+    
+    $.ajax({
+      url: 'generate_gallery.php',
+      type: 'POST',
+      data: {
+        authors: selectedAuthors
+      },
+      success: function(html) {
+        $('#gallery').html(html);
+      }
+    });
+  }

@@ -2,27 +2,14 @@
 // database connection
 require_once 'connect.php';
 
-// Retrieve photo paths
-$query = "SELECT p.title, p.picture_link, a.name AS author_name
-FROM painting p
-JOIN author a ON p.id_author = a.id";
-$result = mysqli_query($conn, $query);
-
-// Store the photo paths in an array
-$photos = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $title= $row['title'];
-    $author = $row['author_name'];
-    $picture = $row['picture_link'];
-    $photos[] = array('title' => $title, 'picture_link' => $picture, 'author_name' => $author);
-}
-
-$query = "SELECT name FROM author";
+$query = "SELECT id, name FROM author";
 $result = mysqli_query($conn, $query);
 
 $authors = array();
 while ($row = mysqli_fetch_assoc($result)) {
-    $authors[] = $row['name'];
+    $author_id=$row['id'];
+    $author_name=$row['name'];
+    $authors[] = array('id' => $author_id, 'name' => $author_name);
 }
 
 $query = "SELECT name FROM style";
@@ -55,33 +42,35 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
     <script>
-      $(document).ready(function() {
-    $(".image-link").click(function(e) {
-        e.preventDefault();
-        var src = $(this).find("img").attr("src");
-        var title = $(this).data("title");
-        var author = $(this).data("author");
-        $("#myModal-content").attr("src", src);
-        $("#myModal-title").text(title);
-        $("#myModal-author").text(author);
-        $("#myModal").fadeIn();
-        $("#backButton").fadeIn();
-    });
+        $(document).ready(function() {
+            $(".image-link").click(function(e) {
+                e.preventDefault();
+                var src = $(this).find("img").attr("src");
+                var title = $(this).data("title");
+                var author = $(this).data("author");
+                $("#myModal-content").attr("src", src);
+                $("#myModal-title").text(title);
+                $("#myModal-author").text(author);
+                $("#myModal").fadeIn();
+                $("#backButton").fadeIn();
+            });
     
-    // Funkcja obsługująca przycisk "Zamknij"
-    $("#myModal-close").click(function() {
-        $("#myModal").fadeOut();
-        $("#backButton").fadeOut();
-    });
+            // Funkcja obsługująca przycisk "Zamknij"
+            $("#myModal-close").click(function() {
+                $("#myModal").fadeOut();
+                $("#backButton").fadeOut();
+            });
     
-    // Funkcja obsługująca przycisk "Powrót"
-    $("#backButton").click(function() {
-        $("#myModal").fadeOut();
-        $("#myModal-content").attr("src", "");
-        $("#backButton").fadeOut();
-    });
-});
-</script>
+            // Funkcja obsługująca przycisk "Powrót"
+            $("#backButton").click(function() {
+                $("#myModal").fadeOut();
+                $("#myModal-content").attr("src", "");
+                $("#backButton").fadeOut();
+            });
+        });
+    </script>
+
+
 
 </head>
 <body>
@@ -124,9 +113,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <?php
             foreach ($authors as $author) {
                 echo '<div class="form-check">';
-                echo '<input class="form-check-input" type="checkbox" value="' . $author . '" id="' . $author . '">';
-                echo '<label class="form-check-label" for="' . $author . '">';
-                echo $author;
+                echo '<input class="form-check-input" type="checkbox" value="' . $author['id'] . '" id="' . $author['id'] . '">';
+                echo '<label class="form-check-label" for="' . $author['id'] . '">';
+                echo $author['name'];
                 echo '</label>';
                 echo '</div>';
             }
@@ -137,6 +126,11 @@ while ($row = mysqli_fetch_assoc($result)) {
             <button type="button" class="btn btn-primary" onclick="applyFilters()">Filtruj</button>
         </div>
         </div>
+    </div>
+</div>
+
+</div>
+
     </div>
     </div>
     <!-- Modal for Location filter-->
@@ -194,38 +188,14 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>
     </div>
     <div class="container mt-5">    
-    <div id="gallery" class="row">
-        <?php
-            shuffle($photos); // losowo mieszamy tablicę zdjęć
-            $photoIndex = 0;
-            for ($i = 0; $i < 6; $i++) {
-                echo '<div class="col-md-' . 2 . '">';
-                for ($j = 0; $j < 2; $j++) {
-                    if ($photoIndex >= count($photos)) break;
-                    $photo = $photos[$photoIndex];
-                    echo '<div class="mb-4">';
-                    echo '<a href="' . $photo['picture_link'] . '" class="image-link" data-title="' . $photo['title'] . '" data-author="' . $photo['author_name'] . '">';
-                    echo '<img src="' . $photo['picture_link'] . '" class="img-thumbnail" alt="' . $photo['title'] . '">';
-                    echo '</a>';
-                    echo '</div>';
-                    $photoIndex++;
-                }
-                echo '</div>';
-            }
-        ?>
+    <div id="gallery" class="row mb-10">
+        <script>
+        $(document).ready(function() {
+            applyFilters();
+        });
+        </script>
     </div>
 </div>
-
-
-    </div>
-
-    <!-- The Modal -->
-    <div id="myModal">
-        <span id="myModal-close">&times;</span>
-        <img id="myModal-content" />
-        <h4 id="myModal-title"></h4>
-        <h5 id="myModal-author"></h5>   
-    </div>
 
 
 </body>
