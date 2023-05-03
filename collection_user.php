@@ -34,42 +34,14 @@ while ($row = mysqli_fetch_assoc($result)) {
 <html>
 <head>
     <title>Zbiory muzeów narodowych</title>
+    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $(".image-link").click(function(e) {
-                e.preventDefault();
-                var src = $(this).find("img").attr("src");
-                var title = $(this).data("title");
-                var author = $(this).data("author");
-                $("#myModal-content").attr("src", src);
-                $("#myModal-title").text(title);
-                $("#myModal-author").text(author);
-                $("#myModal").fadeIn();
-                $("#backButton").fadeIn();
-            });
     
-            // Funkcja obsługująca przycisk "Zamknij"
-            $("#myModal-close").click(function() {
-                $("#myModal").fadeOut();
-                $("#backButton").fadeOut();
-            });
-    
-            // Funkcja obsługująca przycisk "Powrót"
-            $("#backButton").click(function() {
-                $("#myModal").fadeOut();
-                $("#myModal-content").attr("src", "");
-                $("#backButton").fadeOut();
-            });
-        });
-    </script>
-
 
 
 </head>
@@ -112,29 +84,31 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="modal-body">
             <?php
             foreach ($authors as $author) {
-                echo '<div class="form-check">';
-                echo '<input class="form-check-input" type="checkbox" value="' . $author['id'] . '" id="' . $author['id'] . '">';
-                echo '<label class="form-check-label" for="' . $author['id'] . '">';
-                echo $author['name'];
-                echo '</label>';
-                echo '</div>';
+            echo '<div class="form-check">';
+            echo '<input class="form-check-input" type="checkbox" value="' . $author['id'] . '" id="' . $author['id'] . '">';
+            echo '<label class="form-check-label" for="' . $author['id'] . '">';
+            echo $author['name'];
+            echo '</label>';
+            echo '</div>';
             }
             ?>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" onclick="applyFilters()">Filtruj</button>
+            <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
+      </div>
         </div>
         </div>
     </div>
-</div>
+    </div>
 
 </div>
+
 
     </div>
     </div>
     <!-- Modal for Location filter-->
-    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
+    <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
@@ -155,7 +129,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" onclick="applyFilters()">Filtruj</button>
+            <button type="button" class="btn btn-primary" onclick="generateGallery()">Filtruj</button>
         </div>
         </div>
     </div>
@@ -172,8 +146,8 @@ while ($row = mysqli_fetch_assoc($result)) {
             <?php
             foreach ($styles as $style) {
                 echo '<div class="form-check">';
-                echo '<input class="form-check-input" type="checkbox" value="' . $author . '" id="' . $author . '">';
-                echo '<label class="form-check-label" for="' . $author . '">';
+                echo '<input class="form-check-input" type="checkbox" value="' . $style . '" id="' . $style  . '">';
+                echo '<label class="form-check-label" for="' . $style . '">';
                 echo $style;
                 echo '</label>';
                 echo '</div>';
@@ -182,16 +156,46 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" onclick="applyFilters()">Filtruj</button>
+            <button type="button" class="btn btn-primary" onclick="generateGallery()">Filtruj</button>
         </div>
         </div>
     </div>
     </div>
-    <div class="container mt-5">    
+
+    <script>
+        function generateGallery() {
+        // Pobranie wartości zaznaczonych autorów
+        var selectedAuthLocStyle = $('#authorModal input[type=checkbox]:checked, #locationModal input[type=checkbox]:checked, #styleModalinput[type=checkbox]:checked').map(function() {
+        return $(this).val();
+        }).get();
+        
+        if (selectedAuthLocStyle.length == 0) {
+        console.log("Nie wybrano żadnych autorów.");
+        }
+
+        // Wysłanie zapytania AJAX do generate_gallery.php z wybranymi autorami jako dane POST
+        $.ajax({
+        url: 'generate_gallery.php',
+        type: 'POST',
+        data: {
+            selected: selectedAuthLocStyle
+        },
+        success: function(html) {
+            // Uaktualnienie zawartości galerii na stronie
+            $('#gallery').html(html);
+        }
+        });
+    }
+    </script>
+    
+    
+    <div class="container mt-5">
     <div id="gallery" class="row mb-10">
+    
+
         <script>
         $(document).ready(function() {
-            applyFilters();
+            generateGallery();
         });
         </script>
     </div>

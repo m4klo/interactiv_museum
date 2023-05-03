@@ -3,17 +3,20 @@
 require_once 'connect.php';
 
 // pobierz dane z bazy danych na podstawie wybranych autorów
-if(isset($_POST['authors'])){
-    $selectedAuthors = $_POST['authors'];
+if(isset($_POST['selected'])){
+    $selectedAuthLocStyle = $_POST['selected'];
 }
 
 // Retrieve photo paths
-$query = "SELECT p.title, p.picture_link, a.name AS author_name
+$query = "SELECT p.title, p.picture_link, a.name AS author_name, s.name AS style_name, l.name AS location_name
 FROM painting p
-JOIN author a ON p.id_author = a.id";
-if (!empty($selectedAuthors)) {
-    $query .= ' WHERE a.id IN (' . implode(',', $selectedAuthors) . ')';
+JOIN author a ON p.id_author = a.id
+JOIN style s ON p.id_style = s.id
+JOIN location l ON p.id_location = l.id";
+if (!empty($selectedAuthLocStyle)) {
+    $query .= ' WHERE a.id IN (' . implode(',', $selectedAuthLocStyle) . ') OR s.id IN (' . implode(',', $selectedAuthLocStyle) . ') OR l.id IN (' . implode(',', $selectedAuthLocStyle) . ')';
 }
+
 $result = mysqli_query($conn, $query);
 
 // Store the photo paths in an array
