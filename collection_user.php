@@ -12,20 +12,24 @@ while ($row = mysqli_fetch_assoc($result)) {
     $authors[] = array('id' => $author_id, 'name' => $author_name);
 }
 
-$query = "SELECT name FROM style";
+$query = "SELECT id, name FROM style";
 $result = mysqli_query($conn, $query);
 
 $styles = array();
 while ($row = mysqli_fetch_assoc($result)) {
-    $styles[] = $row['name'];
+    $style_id=$row['id'];
+    $style_name=$row['name'];
+    $styles[] = array('id' => $style_id, 'name' => $style_name);
 }
 
-$query = "SELECT name FROM location";
+$query = "SELECT id, name FROM location";
 $result = mysqli_query($conn, $query);
 
 $locations = array();
 while ($row = mysqli_fetch_assoc($result)) {
-    $locations[] = $row['name'];
+    $location_id=$row['id'];
+    $location_name=$row['name'];
+    $locations[] = array('id' => $location_id, 'name' => $location_name);
 }
 
 ?>
@@ -75,117 +79,117 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <!-- Modal for Author filter-->
     <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="authorModalLabel">Wybierz autora</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authorModalLabel">Wybierz autora</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    foreach ($authors as $author) {
+                        echo '<div class="form-check">';
+                        echo '<input class="form-check-input" type="checkbox" value="' . $author['id'] . '" id="' . $author['id'] . '">';
+                        echo '<label class="form-check-label" for="' . $author['id'] . '">';
+                        echo $author['name'];
+                        echo '</label>';
+                        echo '</div>';
+                    }
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <?php
-            foreach ($authors as $author) {
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="checkbox" value="' . $author['id'] . '" id="' . $author['id'] . '">';
-            echo '<label class="form-check-label" for="' . $author['id'] . '">';
-            echo $author['name'];
-            echo '</label>';
-            echo '</div>';
-            }
-            ?>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
-      </div>
-        </div>
-        </div>
-    </div>
-    </div>
-
-</div>
-
-
-    </div>
     </div>
     <!-- Modal for Location filter-->
     <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="locationModalLabel">Wybierz lokalizację</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="locationModalLabel">Wybierz autora</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    foreach ($locations as $location) {
+                        echo '<div class="form-check">';
+                        echo '<input class="form-check-input" type="checkbox" value="' . $location['id'] . '" id="' . $location['id'] . '">';
+                        echo '<label class="form-check-label" for="' . $location['id'] . '">';
+                        echo $location['name'];
+                        echo '</label>';
+                        echo '</div>';
+                    }
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <?php
-            foreach ($locations as $location) {
-                echo '<div class="form-check">';
-                echo '<input class="form-check-input" type="checkbox" value="' . $location . '" id="' . $location . '">';
-                echo '<label class="form-check-label" for="' . $location . '">';
-                echo $location;
-                echo '</label>';
-                echo '</div>';
-            }
-            ?>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" onclick="generateGallery()">Filtruj</button>
-        </div>
-        </div>
-    </div>
     </div>
     <!-- Modal for Style filter-->
     <div class="modal fade" id="styleModal" tabindex="-1" aria-labelledby="styleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="styleModalLabel">Wybierz styl</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="styleModalLabel">Wybierz autora</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    foreach ($styles as $style) {
+                        echo '<div class="form-check">';
+                        echo '<input class="form-check-input" type="checkbox" value="' . $style['id'] . '" id="' . $author['id'] . '">';
+                        echo '<label class="form-check-label" for="' . $style['id'] . '">';
+                        echo $style['name'];
+                        echo '</label>';
+                        echo '</div>';
+                    }
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            <?php
-            foreach ($styles as $style) {
-                echo '<div class="form-check">';
-                echo '<input class="form-check-input" type="checkbox" value="' . $style . '" id="' . $style  . '">';
-                echo '<label class="form-check-label" for="' . $style . '">';
-                echo $style;
-                echo '</label>';
-                echo '</div>';
-            }
-            ?>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" onclick="generateGallery()">Filtruj</button>
-        </div>
-        </div>
-    </div>
     </div>
 
     <script>
         function generateGallery() {
-        // Pobranie wartości zaznaczonych autorów
-        var selectedAuthLocStyle = $('#authorModal input[type=checkbox]:checked, #locationModal input[type=checkbox]:checked, #styleModalinput[type=checkbox]:checked').map(function() {
-        return $(this).val();
+        // Pobranie wartości zaznaczonych autorów, stylów oraz lokalizacji
+        var selectedAuthors = $('#authorModal [type=checkbox]:checked').map(function() {
+            return $(this).val();
         }).get();
         
-        if (selectedAuthLocStyle.length == 0) {
-        console.log("Nie wybrano żadnych autorów.");
-        }
-
-        // Wysłanie zapytania AJAX do generate_gallery.php z wybranymi autorami jako dane POST
+        var selectedStyles = $('#styleModal [type=checkbox]:checked').map(function() {
+            return $(this).val();
+        }).get();
+        
+        var selectedLocations = $('#locationModal [type=checkbox]:checked').map(function() {
+            return $(this).val();
+        }).get();
+        
+        // Wysłanie zapytania AJAX do generate_gallery.php z wybranymi autorami, stylami oraz lokalizacjami jako dane POST
         $.ajax({
-        url: 'generate_gallery.php',
-        type: 'POST',
-        data: {
-            selected: selectedAuthLocStyle
-        },
-        success: function(html) {
-            // Uaktualnienie zawartości galerii na stronie
-            $('#gallery').html(html);
-        }
+            url: 'generate_gallery.php',
+            type: 'POST',
+            data: {
+                selectedAuthors: selectedAuthors,
+                selectedStyles: selectedStyles,
+                selectedLocations: selectedLocations
+            },
+            success: function(html) {
+                // Uaktualnienie zawartości galerii na stronie
+                $('#gallery').html(html);
+            }
         });
     }
+
     </script>
     
     

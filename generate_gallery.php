@@ -2,9 +2,14 @@
 // database connection
 require_once 'connect.php';
 
-// pobierz dane z bazy danych na podstawie wybranych autorów
-if(isset($_POST['selected'])){
-    $selectedAuthLocStyle = $_POST['selected'];
+if (isset($_POST['selectedAuthors'])) {
+    $selectedAuthors = $_POST['selectedAuthors'];
+}
+if (isset($_POST['selectedStyles'])) {
+    $selectedStyles = $_POST['selectedStyles'];
+}
+if (isset($_POST['selectedLocations'])) {
+    $selectedLocations = $_POST['selectedLocations'];
 }
 
 // Retrieve photo paths
@@ -13,9 +18,25 @@ FROM painting p
 JOIN author a ON p.id_author = a.id
 JOIN style s ON p.id_style = s.id
 JOIN location l ON p.id_location = l.id";
-if (!empty($selectedAuthLocStyle)) {
-    $query .= ' WHERE a.id IN (' . implode(',', $selectedAuthLocStyle) . ') OR s.id IN (' . implode(',', $selectedAuthLocStyle) . ') OR l.id IN (' . implode(',', $selectedAuthLocStyle) . ')';
+
+$whereClause = array();
+
+if (!empty($selectedAuthors)) {
+    $whereClause[] = 'a.id IN (' . implode(',', $selectedAuthors) . ')';
 }
+
+if (!empty($selectedStyles)) {
+    $whereClause[] = 's.id IN (' . implode(',', $selectedStyles) . ')';
+}
+
+if (!empty($selectedLocations)) {
+    $whereClause[] = 'l.id IN (' . implode(',', $selectedLocations) . ')';
+}
+
+if (!empty($whereClause)) {
+    $query .= ' WHERE ' . implode(' OR ', $whereClause);
+}
+
 
 $result = mysqli_query($conn, $query);
 
