@@ -38,16 +38,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 <html>
 <head>
     <title>Zbiory muzeów narodowych</title>
-    
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
-    <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    
-
-
+    <script src="script.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -99,7 +95,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(1)">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -126,7 +122,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(1)">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -153,56 +149,26 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery()">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(1)">Filtruj</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        function generateGallery() {
-        // Pobranie wartości zaznaczonych autorów, stylów oraz lokalizacji
-        var selectedAuthors = $('#authorModal [type=checkbox]:checked').map(function() {
-            return $(this).val();
-        }).get();
-        
-        var selectedStyles = $('#styleModal [type=checkbox]:checked').map(function() {
-            return $(this).val();
-        }).get();
-        
-        var selectedLocations = $('#locationModal [type=checkbox]:checked').map(function() {
-            return $(this).val();
-        }).get();
-        
-        // Wysłanie zapytania AJAX do generate_gallery.php z wybranymi autorami, stylami oraz lokalizacjami jako dane POST
-        $.ajax({
-            url: 'generate_gallery.php',
-            type: 'POST',
-            data: {
-                selectedAuthors: selectedAuthors,
-                selectedStyles: selectedStyles,
-                selectedLocations: selectedLocations
-            },
-            success: function(html) {
-                // Uaktualnienie zawartości galerii na stronie
-                $('#gallery').html(html);
-            }
-        });
-    }
-
-    </script>
-    
     
     <div class="container mt-5">
     <div id="gallery" class="row mb-10">
-    
-
         <script>
         $(document).ready(function() {
-            generateGallery();
+            let totalPages=2;
+            let pageNum = 1;
+            generateGallery(pageNum, totalPages);
         });
         </script>
     </div>
+
+    <button class="page-btn" data-page="1">1</button>
+    <button class="page-btn" data-page="2">2</button>
+    <button class="page-btn" data-page="3">3</button>
 </div>
 
 

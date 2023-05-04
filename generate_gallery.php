@@ -11,7 +11,9 @@ if (isset($_POST['selectedStyles'])) {
 if (isset($_POST['selectedLocations'])) {
     $selectedLocations = $_POST['selectedLocations'];
 }
-
+if (isset($_POST['pageNum'])) {
+    $pageNum = $_POST['pageNum'];
+}
 // Retrieve photo paths
 $query = "SELECT p.title, p.picture_link, a.name AS author_name, s.name AS style_name, l.name AS location_name
 FROM painting p
@@ -37,8 +39,25 @@ if (!empty($whereClause)) {
     $query .= ' WHERE ' . implode(' OR ', $whereClause);
 }
 
+// Zdefiniuj liczbę wyników na stronę
+$resultsPerPage = 12;
 
+// Oblicz indeks pierwszego wyniku na stronie
+$offset = ($pageNum - 1) * $resultsPerPage;
+
+// Oblicz liczbę wyników ogółem
+$totalResults = mysqli_num_rows(mysqli_query($conn, $query));
+
+// Oblicz liczbę stron na podstawie liczby wyników ogółem i liczby wyników na stronę
+$totalPages = ceil($totalResults / $resultsPerPage);
+
+// Zmodyfikuj zapytanie SQL, aby uwzględniało limit wyników i przesunięcie
+$query .= " LIMIT $resultsPerPage OFFSET $offset";
+
+// Wykonaj zapytanie do bazy danych i pobierz wyniki
 $result = mysqli_query($conn, $query);
+
+
 
 // Store the photo paths in an array
 $photos = array();
@@ -70,6 +89,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         echo '</div>';
     }
 ?>
+<script src="script_generate.js"></script> 
 
 <!-- The Modal -->
 <div id="myModal">
@@ -79,31 +99,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <h5 id="myModal-author"></h5>   
 </div>
 
-<script>
-$(document).ready(function() {
-    $(".image-link").click(function(e) {
-        e.preventDefault();
-        var src = $(this).find("img").attr("src");
-        var title = $(this).data("title");
-        var author = $(this).data("author");
-        $("#myModal-content").attr("src", src);
-        $("#myModal-title").text(title);
-        $("#myModal-author").text(author);
-        $("#myModal").fadeIn();
-        $("#backButton").fadeIn();
-    });
-
-    // Funkcja obsługująca przycisk "Zamknij"
-    $("#myModal-close").click(function() {
-        $("#myModal").fadeOut();
-        $("#backButton").fadeOut();
-    });
-
-    // Funkcja obsługująca przycisk "Powrót"
-    $("#backButton").click(function() {
-        $("#myModal").fadeOut();
-        $("#myModal-content").attr("src", "");
-        $("#backButton").fadeOut();
-    });
-});
-</script>
+<div class="gallery-pagination">
+        <button class="prev-btn" onclick="prevPage()">Previous</button>
+        <button class="next-btn" onclick="nextPage()">Next</button>
+</div>
