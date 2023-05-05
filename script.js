@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
     curtainRight.classList.add('open');
 });
 
-function generateGallery(pageNum, totalPages) {
+function generateGallery(pageNum) {
     // Pobranie wartości zaznaczonych autorów, stylów oraz lokalizacji
     var selectedAuthors = $('#authorModal [type=checkbox]:checked').map(function() {
         return $(this).val();

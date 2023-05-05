@@ -2,6 +2,7 @@
 // database connection
 require_once 'connect.php';
 
+
 $query = "SELECT id, name FROM author";
 $result = mysqli_query($conn, $query);
 
@@ -68,6 +69,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <li class="nav-item">
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#locationModal">Filtruj lokalizację</button>
                     </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#registerModal">Zarejestruj</button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -94,8 +98,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                 </div>
                 <div class="modal-footer">
+                    <script>
+                        let totalPages=2;
+                        let pageNum = 1;
+                    </script>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(1)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum)">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -122,7 +130,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(1)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum)">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -154,6 +162,80 @@ while ($row = mysqli_fetch_assoc($result)) {
             </div>
         </div>
     </div>
+
+    <script>
+        function register(){
+        // Pobranie danych z formularza
+        var username = $('#username').val();
+        var email = $('#email').val();
+        var password = $('#password').val();
+        var location = $('#location').val();
+
+        console.log(username);
+        console.log(email);
+        console.log(password);
+        console.log(location);
+
+        $.ajax({
+            url: "register.php",
+            type: "POST",
+            data: {
+                username: username,
+                email: email,
+                password: password,
+                location: location
+            },
+            success: function(data) {
+                console.log('Pomyślnie zarejestrowano użytkownika');
+            },
+            error: function(xhr, status, error) {
+                console.log('Wystąpił błąd podczas rejestracji użytkownika');
+            }
+        })
+    }
+    </script>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="registerModalLabel">Rejestracja</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </button>
+        </div>
+        <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Adres e-mail:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Hasło:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+            <label for="location">Lokalizacja:</label>
+            <select class="form-control selectpicker" id="location" name="location" data-live-search="true" required>
+                <option value="" disabled selected>Wybierz lokalizację...</option>
+                <?php foreach ($locations as $location) { ?>
+                <option value="<?php echo $location['id']; ?>"><?php echo $location['name']; ?></option>
+                <?php } ?>
+            </select>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+            <button type="button" class="btn btn-primary" onclick="register()">Zarejestruj się</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
     
     <div class="container mt-5">
     <div id="gallery" class="row mb-10">
@@ -165,7 +247,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         });
         </script>
     </div>
-
     <button class="page-btn" data-page="1">1</button>
     <button class="page-btn" data-page="2">2</button>
     <button class="page-btn" data-page="3">3</button>

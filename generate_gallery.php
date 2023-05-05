@@ -58,7 +58,6 @@ $query .= " LIMIT $resultsPerPage OFFSET $offset";
 $result = mysqli_query($conn, $query);
 
 
-
 // Store the photo paths in an array
 $photos = array();
 while ($row = mysqli_fetch_assoc($result)) {

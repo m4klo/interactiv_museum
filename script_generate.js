@@ -1,5 +1,4 @@
-let totalPages=2;
-let pageNum=1;
+
 $(document).ready(function() {
     $(".image-link").click(function(e) {
         e.preventDefault();
