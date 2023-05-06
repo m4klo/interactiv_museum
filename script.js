@@ -11,15 +11,15 @@ window.addEventListener('load', function() {
 
 function generateGallery(pageNum) {
     // Pobranie wartości zaznaczonych autorów, stylów oraz lokalizacji
-    var selectedAuthors = $('#authorModal [type=checkbox]:checked').map(function() {
+    const selectedAuthors = $('#authorModal [type=checkbox]:checked').map(function() {
         return $(this).val();
     }).get();
     
-    var selectedStyles = $('#styleModal [type=checkbox]:checked').map(function() {
+    const selectedStyles = $('#styleModal [type=checkbox]:checked').map(function() {
         return $(this).val();
     }).get();
     
-    var selectedLocations = $('#locationModal [type=checkbox]:checked').map(function() {
+    const selectedLocations = $('#locationModal [type=checkbox]:checked').map(function() {
         return $(this).val();
     }).get();
 

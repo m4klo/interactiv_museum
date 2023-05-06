@@ -166,15 +166,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     <script>
         function register(){
         // Pobranie danych z formularza
-        var username = $('#username').val();
-        var email = $('#email').val();
-        var password = $('#password').val();
-        var location = $('#location').val();
+        const username = $('#username').val();
+        const email = $('#email').val();
+        const password = $('#password').val();
+        const location = $('#location').val();
 
-        console.log(username);
-        console.log(email);
-        console.log(password);
-        console.log(location);
 
         $.ajax({
             url: "register.php",
