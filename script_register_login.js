@@ -1,12 +1,9 @@
 function register(){
     // Pobranie danych z formularza
-    const username = $('#username').val();
-    const email = $('#email').val();
-    const password = $('#password').val();
-    const location = $('#location').val();
-
-    console.log(username);
-
+    const username = $('#register_username').val();
+    const email = $('#register_email').val();
+    const password = $('#register_password').val();
+    const location = $('#register_location').val();
 
     $.ajax({
         url: "register.php",
@@ -25,17 +22,18 @@ function register(){
         }
     });
 }
-function login(){
-    const username = $('#username').val();
-    const password = $('#password').val();
 
-    console.log(username);
-    console.log(password);
+function login(){
+    const username = $('#login_username').val();
+    const password = $('#login_password').val();
 
     $.ajax({
         type: "POST",
         url: "login.php",
-        data: {username: username, password: password},
+        data: {
+            username: username, 
+            password: password
+        },
         success: function(data) {
         if (data == 'success') {
             window.location.href = "collection_curator.php";

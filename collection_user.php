@@ -179,20 +179,20 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="modal-body">
         <form>
             <div class="form-group">
-                <label for="username">Nazwa użytkownika:</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <label for="register_username">Nazwa użytkownika:</label>
+                <input type="text" class="form-control" id="register_username" name="register_username" required>
             </div>
             <div class="form-group">
-                <label for="email">Adres e-mail:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <label for="register_email">Adres e-mail:</label>
+                <input type="email" class="form-control" id="register_email" name="register_email" required>
             </div>
             <div class="form-group">
-                <label for="password">Hasło:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <label for="register_password">Hasło:</label>
+                <input type="password" class="form-control" id="register_password" name="register_password" required>
             </div>
             <div class="form-group">
             <label for="location">Lokalizacja:</label>
-            <select class="form-control selectpicker" id="location" name="location" data-live-search="true" required>
+            <select class="form-control selectpicker" id="register_location" name="register_location" data-live-search="true" required>
                 <option value="" disabled selected>Wybierz lokalizację...</option>
                 <?php foreach ($locations as $location) { ?>
                 <option value="<?php echo $location['id']; ?>"><?php echo $location['name']; ?></option>
@@ -220,12 +220,12 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="modal-body">
         <form>
             <div class="form-group">
-                <label for="username">Nazwa użytkownika:</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <label for="login_username">Nazwa użytkownika:</label>
+                <input type="text" class="form-control" id="login_username" name="login_username" required>
             </div>
             <div class="form-group">
-                <label for="password">Hasło:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <label for="login_password">Hasło:</label>
+                <input type="password" class="form-control" id="login_password" name="login_password" required>
             </div>
         </form>
         </div>
