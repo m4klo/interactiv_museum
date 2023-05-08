@@ -70,7 +70,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#locationModal">Filtruj lokalizację</button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#logout">Wyloguj</button>
+                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal">Wyloguj</button>
                     </li>
                 </ul>
             </div>
@@ -161,6 +161,23 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
             </div>
         </div>
+    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Potwierdzenie wylogowania</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Czy na pewno chcesz się wylogować?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+            <a href="logout.php" class="btn btn-primary">Wyloguj</a>
+        </div>
+        </div>
+    </div>
     </div>
 
 
