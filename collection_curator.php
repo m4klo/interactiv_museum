@@ -1,4 +1,5 @@
 <?php
+session_start();
 // database connection
 require_once 'connect.php';
 
@@ -188,7 +189,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $(document).ready(function() {
             let totalPages=2;
             let pageNum = 1;
-            generateGallery(pageNum, totalPages);
+            generateGallery(pageNum);
         });
         </script>
     </div>

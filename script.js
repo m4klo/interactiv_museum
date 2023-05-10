@@ -40,4 +40,11 @@ function generateGallery(pageNum) {
     });
 
 }
+$(window).on('beforeunload', function() {
+    $.ajax({
+        type: 'GET',
+        url: 'logout.php', // Twój skrypt PHP, który wywołuje session_destroy()
+        async: false // Zatrzymuje wykonywanie skryptu, aż zostanie zakończone żądanie AJAX
+    });
+});
 

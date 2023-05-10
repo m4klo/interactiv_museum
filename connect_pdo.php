@@ -20,10 +20,4 @@ try {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
 
-// Check connection
-if ($pdo) {
-    echo "Connected successfully to the database.";
-} else {
-    die("Connection failed.");
-}
 ?>
