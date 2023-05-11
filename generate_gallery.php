@@ -16,7 +16,7 @@ if (isset($_POST['pageNum'])) {
     $pageNum = $_POST['pageNum'];
 }
 // Retrieve photo paths
-$query = "SELECT p.title, p.picture_link, p.id_location, a.name AS author_name, s.name AS style_name, l.name AS location_name
+$query = "SELECT p.id, p.title, p.picture_link, p.id_location, a.name AS author_name, s.name AS style_name, l.name AS location_name
 FROM painting p
 JOIN author a ON p.id_author = a.id
 JOIN style s ON p.id_style = s.id
@@ -62,11 +62,12 @@ $result = mysqli_query($conn, $query);
 // Store the photo paths in an array
 $photos = array();
 while ($row = mysqli_fetch_assoc($result)) {
+    $id= $row['id'];
     $title= $row['title'];
     $author = $row['author_name'];
     $picture = $row['picture_link'];
     $id_loc = $row['id_location'];
-    $photos[] = array('title' => $title, 'picture_link' => $picture, 'author_name' => $author, 'id_location' => $id_loc);
+    $photos[] = array('id' => $id, 'title' => $title, 'picture_link' => $picture, 'author_name' => $author, 'id_location' => $id_loc);
 }
 
 ?>
@@ -81,7 +82,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             if ($photoIndex >= count($photos)) break;
             $photo = $photos[$photoIndex];
             echo '<div class="mb-4">';
-            echo '<a href="' . $photo['picture_link'] . '" class="image-link" data-title="' . $photo['title'] . '" data-author="' . $photo['author_name'] . '" data-id_location="' . $photo['id_location'] . '">';
+            echo '<a href="' . $photo['picture_link'] . '" class="image-link" data-title="' . $photo['title'] . '" data-author="' . $photo['author_name'] . '" data-id_location="' . $photo['id_location'] .  '" data-id="' . $photo['id'] .'">';
             echo '<img src="' . $photo['picture_link'] . '" class="img-thumbnail" alt="' . $photo['title'] . '">';
             echo '</a>';
             echo '</div>';
@@ -98,7 +99,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <img id="myModal-content" />
     <h4 id="myModal-title"></h4>
     <h5 id="myModal-author"></h5>
-    <button id="edit-button" data-session-location-id="<?php echo $_SESSION['location_id']; ?>" style="display: none;">Edytuj</button>
+    <button id="edit-button" data-session-location-id="<?php echo $_SESSION['location_id']; ?>" data-id="<?php echo $id; ?>" style="display: none;">Edytuj</button>
 </div>
 
 <div class="gallery-pagination">
