@@ -27,9 +27,9 @@ $(document).ready(function() {
     $("#myModal-close").click(function() {
         $("#myModal").fadeOut();
         $("#backButton").fadeOut();
-        if(dataChanged == true)
+        if($("#edit-button").data("changed") == "true")
         {
-            dataChanged = false;
+            $("#edit-button").data("changed", "false");
             location.reload();
         }
         if ($("#edit-button").text() == "Zapisz") {
@@ -42,9 +42,9 @@ $(document).ready(function() {
         $("#myModal").fadeOut();
         $("#myModal-content").attr("src", "");
         $("#backButton").fadeOut();
-        if(dataChanged == true)
+        if($("#edit-button").data("changed") == "true")
         {
-            dataChanged = false;
+            $("#edit-button").data("changed", "false");
             location.reload();
         }
         if ($("#edit-button").text() == "Zapisz") {
@@ -78,7 +78,7 @@ $(document).ready(function() {
                 success: function(response) {
                     // Obsługa sukcesu (opcjonalnie)
                     console.log("Dane zostały zaktualizowane.");
-                    dataChanged = true;
+                    $("#edit-button").data("changed", "true");
                 },
                 error: function(xhr, status, error) {
                     // Obsługa błędu (opcjonalnie)
@@ -112,13 +112,13 @@ $(document).ready(function() {
 function prevPage() {
     if (pageNum > 1) {
         pageNum--;
-        generateGallery(pageNum, totalPages);
+        generateGallery(pageNum);
     }
 }
 
-function nextPage() {
-    if (pageNum < totalPages) {
+function nextPage(total) {
+    if (pageNum < total) {
         pageNum++;
-        generateGallery(pageNum, totalPages);
+        generateGallery(pageNum);
     }
 }
