@@ -92,6 +92,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 ?>
 <script src="script_generate.js"></script> 
+<link rel="stylesheet" href="style_button.css">
 
 <!-- The Modal -->
 <div id="myModal">
@@ -99,10 +100,19 @@ while ($row = mysqli_fetch_assoc($result)) {
     <img id="myModal-content" />
     <h4 id="myModal-title"></h4>
     <h5 id="myModal-author"></h5>
-    <button id="edit-button" data-session-location-id="<?php echo $_SESSION['location_id']; ?>" data-id="<?php echo $id; ?>" style="display: none;">Edytuj</button>
+    <button id="edit-button" data-session-location-id="<?php echo $_SESSION['location_id']; ?>" data-id="<?php echo $id; ?>" data-changed="false">Edytuj</button>
 </div>
 
-<div class="gallery-pagination">
-        <button class="prev-btn" onclick="prevPage()">Previous</button>
-        <button class="next-btn" onclick="nextPage()">Next</button>
+<div class="gallery-pagination page-buttons-container">
+    <button class="prev-btn" onclick="prevPage()">Previous</button>
+    <button class="next-btn" onclick="nextPage()">Next</button>
 </div>
+
+
+<span id="pageButtonsContainer"></span>
+
+<script>
+  // Wywołaj funkcję generatePageButtons() z przekazaną wartością totalPages
+  generatePageButtons(totalPages);
+</script>
+

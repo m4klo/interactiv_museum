@@ -9,6 +9,7 @@ window.addEventListener('load', function() {
     curtainRight.classList.add('open');
 });
 
+
 function generateGallery(pageNum) {
     // Pobranie wartości zaznaczonych autorów, stylów oraz lokalizacji
     const selectedAuthors = $('#authorModal [type=checkbox]:checked').map(function() {
@@ -48,3 +49,27 @@ $(window).on('beforeunload', function() {
     });
 });
 
+  function generatePageButtons(totalPages) {
+    let container = document.getElementById('pageButtonsContainer');
+    // Wyczyść zawartość kontenera
+    container.innerHTML = '';
+  
+    // Wygeneruj przyciski dla każdej strony
+    for (let i = 1; i <= totalPages; i++) {
+      let button = document.createElement('button');
+      button.classList.add('page-button');
+      button.textContent = i;
+      button.addEventListener('click', function () {
+        // Obsłuż kliknięcie przycisku strony
+        let page = parseInt(this.textContent);
+        pageNum=page;
+        generateGallery(pageNum);
+      });
+      container.appendChild(button);
+    }
+  
+    // Pokaż kontener przycisków, jeśli istnieją przyciski
+    container.classList.remove('hidden');
+  }
+  
+  

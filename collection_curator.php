@@ -180,22 +180,16 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </div>
     </div>
-
-
     
     <div class="container mt-5">
     <div id="gallery" class="row mb-10">
         <script>
         $(document).ready(function() {
-            let totalPages=2;
             let pageNum = 1;
             generateGallery(pageNum);
         });
         </script>
     </div>
-    <button class="page-btn" data-page="1">1</button>
-    <button class="page-btn" data-page="2">2</button>
-    <button class="page-btn" data-page="3">3</button>
 </div>
 
 

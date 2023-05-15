@@ -32,6 +32,9 @@ $(document).ready(function() {
             dataChanged = false;
             location.reload();
         }
+        if ($("#edit-button").text() == "Zapisz") {
+            $("#edit-button").text("Edytuj");
+        }
     });
 
     // Funkcja obsługująca przycisk "Powrót"
@@ -43,6 +46,9 @@ $(document).ready(function() {
         {
             dataChanged = false;
             location.reload();
+        }
+        if ($("#edit-button").text() == "Zapisz") {
+            $("#edit-button").text("Edytuj");
         }
     });
 });
@@ -116,5 +122,3 @@ function nextPage() {
         generateGallery(pageNum, totalPages);
     }
 }
-
-

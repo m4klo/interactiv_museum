@@ -161,7 +161,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(1)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum)">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -241,15 +241,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     <div id="gallery" class="row mb-10">
         <script>
         $(document).ready(function() {
-            let totalPages=2;
             let pageNum = 1;
             generateGallery(pageNum);
         });
         </script>
     </div>
-    <button class="page-btn" data-page="1">1</button>
-    <button class="page-btn" data-page="2">2</button>
-    <button class="page-btn" data-page="3">3</button>
 </div>
 
 

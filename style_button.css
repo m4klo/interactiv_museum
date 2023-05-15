@@ -1,0 +1,45 @@
+/* Styl przycisków Previous i Next */
+.prev-btn,
+.next-btn {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block; /* Ustawienie przycisków jako bloki */
+  margin: 0 5px;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: #666;
+}
+/* Styl przycisków stronicowania */
+.page-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .page-button {
+    display: inline-block;
+    margin-top: 1%;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #333;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .page-button:hover {
+    background-color: #666;
+  }
+  
+  .page-button.active {
+    background-color: #337ab7;
+  }
+  
+
