@@ -116,7 +116,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     if (typeof total === 'undefined' || total === null) {
         let total = <?php echo $totalPages; ?>;
         console.log(total);
-        generatePageButtons(total);
+        generatePageButtons(total, <?php echo $pageNum; ?>);
     }
 </script>
 

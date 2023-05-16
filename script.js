@@ -49,27 +49,48 @@ $(window).on('beforeunload', function() {
     });
 });
 
-  function generatePageButtons(totalPages) {
+function generatePageButtons(totalPages) {
     let container = document.getElementById('pageButtonsContainer');
-    // Wyczyść zawartość kontenera
     container.innerHTML = '';
   
-    // Wygeneruj przyciski dla każdej strony
+    let currentPage = 1;
+    let maxButtons = 10;
+  
+    if (totalPages <= maxButtons) {
     for (let i = 1; i <= totalPages; i++) {
-      let button = document.createElement('button');
-      button.classList.add('page-button');
-      button.textContent = i;
-      button.addEventListener('click', function () {
-        // Obsłuż kliknięcie przycisku strony
-        let page = parseInt(this.textContent);
-        pageNum=page;
-        generateGallery(pageNum);
-      });
-      container.appendChild(button);
+        createPageButton(i, currentPage);
+    }
+    } else {
+      let startPage = currentPage;
+      let endPage = startPage + maxButtons - 1;
+  
+    if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = endPage - maxButtons + 1;
     }
   
-    // Pokaż kontener przycisków, jeśli istnieją przyciski
+    for (let i = startPage; i <= endPage; i++) {
+        createPageButton(i);
+    }
+    }
+  
     container.classList.remove('hidden');
+    container.style.textAlign = 'center';
   }
   
+function createPageButton(pageNumber) {
+    let button = document.createElement('button');
+    button.textContent = pageNumber;
+    button.classList.add('page-button');
+  
+    button.addEventListener('click', function () {
+        generateGallery(pageNumber);
+        pageNum=pageNumber;
+    });
+  
+    let container = document.getElementById('pageButtonsContainer');
+    container.appendChild(button);
+  }
+  
+
   

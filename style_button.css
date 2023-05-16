@@ -22,24 +22,24 @@
     align-items: center;
   }
   
-  .page-button {
-    display: inline-block;
-    margin-top: 1%;
-    margin-right: 10px;
-    padding: 5px 10px;
-    background-color: #333;
-    border: none;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-  }
+.page-button {
+  display: inline-block;
+  margin-top: 1%;
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #333;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
   
-  .page-button:hover {
-    background-color: #666;
-  }
+.page-button:hover {
+  background-color: #666;
+}
   
-  .page-button.active {
-    background-color: #337ab7;
-  }
-  
+.page-button.active {
+  color: #fff;
+  background-color: #333;
+}
 
