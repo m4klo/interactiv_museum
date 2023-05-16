@@ -105,7 +105,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <div class="gallery-pagination page-buttons-container">
     <button class="prev-btn" onclick="prevPage()">Previous</button>
-    <button class="next-btn" onclick="nextPage($totalPages)">Next</button>
+    <button class="next-btn" onclick="nextPage(<?php echo $totalPages; ?>)">Next</button>
 </div>
 
 

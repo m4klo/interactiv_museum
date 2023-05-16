@@ -104,7 +104,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         let pageNum = 1;
                     </script>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1)">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -131,7 +131,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1)">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(1)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1)">Filtruj</button>
                 </div>
             </div>
         </div>
