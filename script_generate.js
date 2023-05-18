@@ -108,17 +108,31 @@ $(document).ready(function() {
         }
     });
 });
-
+// Dodaj funkcję obsługującą animację przechodzenia między stronami
 function prevPage() {
     if (pageNum > 1) {
         pageNum--;
-        generateGallery(pageNum);
+        animatePageTransition('animate-right');
+        setTimeout(function() {
+            generateGallery(pageNum);
+        }, 2000);
     }
 }
 
 function nextPage(total) {
     if (pageNum < total) {
         pageNum++;
-        generateGallery(pageNum);
+        animatePageTransition('animate-left');
+        setTimeout(function() {
+            generateGallery(pageNum);
+        }, 2000);
     }
 }
+
+function animatePageTransition(animationClass) {
+    const galleryImages = document.querySelectorAll('.gallery-image');
+    galleryImages.forEach(image => {
+        image.classList.add(animationClass);
+    });
+}
+

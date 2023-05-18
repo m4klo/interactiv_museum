@@ -81,13 +81,13 @@ while ($row = mysqli_fetch_assoc($result)) {
         for ($j = 0; $j < 2; $j++) {
             if ($photoIndex >= count($photos)) break;
             $photo = $photos[$photoIndex];
-            echo '<div class="mb-20">';
+            echo '<div class="mb-20 gallery-image" data-page="' . ($pageNum + 1) . '">';
             echo '<a href="' . $photo['picture_link'] . '" class="image-link" data-title="' . $photo['title'] . '" data-author="' . $photo['author_name'] . '" data-id_location="' . $photo['id_location'] .  '" data-id="' . $photo['id'] .'">';
             echo '<img src="' . $photo['picture_link'] . '" class="img-thumbnail" alt="' . $photo['title'] . '">';
             echo '</a>';
             echo '</div>';
-        $photoIndex++;
-            }
+            $photoIndex++;
+        }
         echo '</div>';
     }
 ?>
@@ -103,9 +103,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     <button id="edit-button" data-session-location-id="<?php echo $_SESSION['location_id']; ?>" data-id="<?php echo $id; ?>" data-changed="false">Edytuj</button>
 </div>
 
-<div class="gallery-pagination page-buttons-container">
-    <button class="prev-btn" onclick="prevPage()">Previous</button>
-    <button class="next-btn" onclick="nextPage(<?php echo $totalPages; ?>)">Next</button>
+<div class="gallery-pagination">
+    <div class="page-buttons-container">
+        <button class="prev-btn" onclick="prevPage()">Previous</button>
+        <button class="next-btn" onclick="nextPage(<?php echo $totalPages; ?>)">Next</button>
+    </div>
 </div>
 
 
@@ -119,4 +121,3 @@ while ($row = mysqli_fetch_assoc($result)) {
         generatePageButtons(total, <?php echo $pageNum; ?>);
     }
 </script>
-

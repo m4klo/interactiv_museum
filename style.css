@@ -5,6 +5,5 @@ body {
   background-attachment: fixed; /* opcjonalnie */
 }
 #gallery {
-  height: 80vh; /* Ustaw maksymalną wysokość na 80% wysokości ekranu */
-  overflow: auto; /* Dodaj pasek przewijania, jeśli zawartość jest większa niż dostępna przestrzeń */
+  height: 88vh; /* Ustaw maksymalną wysokość na 80% wysokości ekranu */
 }

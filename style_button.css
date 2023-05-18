@@ -16,11 +16,25 @@
   background-color: #666;
 }
 /* Styl przycisków stronicowania */
+.gallery-pagination {
+  position: relative;
+}
+
 .page-buttons-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: 200px; /* Możesz dostosować szerokość według swoich preferencji */
+}
+
+.page-buttons-container button {
+  flex: 1;
+  margin: 0 2px; /* Możesz dostosować margines według swoich preferencji */
+}
+
   
 .page-button {
   display: inline-block;
@@ -43,3 +57,28 @@
   background-color: #333;
 }
 
+.animate-left {
+  animation: slide-left 5s forwards;
+}
+
+.animate-right {
+  animation: slide-right 5s forwards;
+}
+
+@keyframes slide-left {
+  from {
+      transform: translateX(0%);
+  }
+  to {
+      transform: translateX(-1100%);
+  }
+}
+
+@keyframes slide-right {
+  from {
+      transform: translateX(0);
+  }
+  to {
+      transform: translateX(1100%);
+  }
+}
