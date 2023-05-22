@@ -84,8 +84,14 @@ function createPageButton(pageNumber) {
     button.classList.add('page-button');
   
     button.addEventListener('click', function () {
-        generateGallery(pageNumber);
-        pageNum=pageNumber;
+        if(pageNum!=pageNumber){
+            animateGalleryTransition('animate-from-bottom');
+            animateButtonsTransition('animate-from-bottom');
+            setTimeout(function() {
+                generateGallery(pageNumber);
+                pageNum=pageNumber;
+            }, 2000);
+        }
     });
   
     let container = document.getElementById('pageButtonsContainer');

@@ -77,7 +77,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     shuffle($photos); // losowo mieszamy tablicę zdjęć
     $photoIndex = 0;
     for ($i = 0; $i < 6; $i++) {
-        echo '<div class="col-md-' . 2 . '">';
+        echo '<div class="col-md-' . 2 . ' animate-left">'; // Dodaj klasę animate-left
         for ($j = 0; $j < 2; $j++) {
             if ($photoIndex >= count($photos)) break;
             $photo = $photos[$photoIndex];
@@ -103,15 +103,16 @@ while ($row = mysqli_fetch_assoc($result)) {
     <button id="edit-button" data-session-location-id="<?php echo $_SESSION['location_id']; ?>" data-id="<?php echo $id; ?>" data-changed="false">Edytuj</button>
 </div>
 
-<div class="gallery-pagination">
+<div class="gallery-pagination animate-bottom">
     <div class="page-buttons-container">
         <button class="prev-btn" onclick="prevPage()">Previous</button>
         <button class="next-btn" onclick="nextPage(<?php echo $totalPages; ?>)">Next</button>
     </div>
+    <span id="pageButtonsContainer"></span>
 </div>
 
 
-<span id="pageButtonsContainer"></span>
+
 
 <script>
     // Sprawdź, czy zmienna "total" już istnieje

@@ -3,7 +3,11 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed; /* opcjonalnie */
+  overflow: hidden;
 }
 #gallery {
   height: 88vh; /* Ustaw maksymalną wysokość na 80% wysokości ekranu */
+}
+.navbar {
+  font-family: 'Old Standard TT', serif;
 }

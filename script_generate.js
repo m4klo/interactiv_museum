@@ -112,7 +112,8 @@ $(document).ready(function() {
 function prevPage() {
     if (pageNum > 1) {
         pageNum--;
-        animatePageTransition('animate-right');
+        animateGalleryTransition('animate-from-left');
+        animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
             generateGallery(pageNum);
         }, 2000);
@@ -122,17 +123,24 @@ function prevPage() {
 function nextPage(total) {
     if (pageNum < total) {
         pageNum++;
-        animatePageTransition('animate-left');
+        animateGalleryTransition('animate-from-left');
+        animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
             generateGallery(pageNum);
         }, 2000);
     }
 }
 
-function animatePageTransition(animationClass) {
+function animateGalleryTransition(animationClass) {
     const galleryImages = document.querySelectorAll('.gallery-image');
     galleryImages.forEach(image => {
         image.classList.add(animationClass);
     });
 }
 
+function animateButtonsTransition(animationClass) {
+    const pageButtons = document.querySelectorAll('.gallery-pagination');
+    pageButtons.forEach(button => {
+        button.classList.add(animationClass);
+    });
+}
