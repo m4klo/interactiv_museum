@@ -89,29 +89,27 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <h5 class="modal-title" id="authorModalLabel">Wybierz autora</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <?php
-                    foreach ($authors as $author) {
-                        echo '<div class="form-check">';
-                        echo '<input class="form-check-input" type="checkbox" value="' . $author['id'] . '" id="' . $author['id'] . '">';
-                        echo '<label class="form-check-label" for="' . $author['id'] . '">';
-                        echo $author['name'];
-                        echo '</label>';
-                        echo '</div>';
-                    }
-                    ?>
+                <div class="modal-search">
+                    <script>
+                        let checkedAuthors=[];
+                    </script>
+                    <input type="text" id="searchInput" class="form-control" placeholder="Wyszukaj autora" oninput="checkedAuthors = getCheckedAuthors(checkedAuthors); generateAuthors(this.value, checkedAuthors);">
+                </div>
+                <div class="modal-body" id="authorList">
+                <script>
+                    $(document).ready(function() {
+                        generateAuthors('');
+                    });
+                </script>
                 </div>
                 <div class="modal-footer">
-                    <script>
-                        let totalPages=2;
-                        let pageNum = 1;
-                    </script>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors))">Filtruj</button>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Modal for Location filter-->
     <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -151,7 +149,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <?php
                     foreach ($styles as $style) {
                         echo '<div class="form-check">';
-                        echo '<input class="form-check-input" type="checkbox" value="' . $style['id'] . '" id="' . $author['id'] . '">';
+                        echo '<input class="form-check-input" type="checkbox" value="' . $style['id'] . '" id="' . $style['id'] . '">';
                         echo '<label class="form-check-label" for="' . $style['id'] . '">';
                         echo $style['name'];
                         echo '</label>';

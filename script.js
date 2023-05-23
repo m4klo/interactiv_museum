@@ -10,12 +10,8 @@ window.addEventListener('load', function() {
 });
 
 
-function generateGallery(pageNum) {
+function generateGallery(pageNum, checkedAuthors) {
     // Pobranie wartości zaznaczonych autorów, stylów oraz lokalizacji
-    const selectedAuthors = $('#authorModal [type=checkbox]:checked').map(function() {
-        return $(this).val();
-    }).get();
-    
     const selectedStyles = $('#styleModal [type=checkbox]:checked').map(function() {
         return $(this).val();
     }).get();
@@ -29,7 +25,7 @@ function generateGallery(pageNum) {
         url: 'generate_gallery.php',
         type: 'POST',
         data: {
-            selectedAuthors: selectedAuthors,
+            selectedAuthors: checkedAuthors,
             selectedStyles: selectedStyles,
             selectedLocations: selectedLocations,
             pageNum: pageNum
@@ -96,7 +92,37 @@ function createPageButton(pageNumber) {
   
     let container = document.getElementById('pageButtonsContainer');
     container.appendChild(button);
-  }
+}
   
+function generateAuthors(searchTerm, checkedAuthors) {
+    $.ajax({
+        url: 'generate_authors.php',
+        type: 'GET',
+        data: { search: searchTerm, checkedAuthors: checkedAuthors },
+        success: function(response) {
+            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
+            $('#authorList').html(response);
+        }
+    });
+}
+function getCheckedAuthors(checkedAuthors) {
+    // Pobierz zaznaczone checkboxy
+    $('.form-check-input').each(function() {
+        const authorId = $(this).val();
+        const authorIndex = checkedAuthors.indexOf(authorId);
 
-  
+        if ($(this).is(':checked')) {
+            // Dodaj autora do listy, jeśli jeszcze go tam nie ma
+            if (authorIndex === -1) {
+                checkedAuthors.push(authorId);
+            }
+        } else {
+            // Usuń autora z listy, jeśli jest na liście
+            if (authorIndex !== -1) {
+                checkedAuthors.splice(authorIndex, 1);
+            }
+        }
+    });
+
+    return checkedAuthors;
+}
