@@ -1,40 +1,3 @@
-<?php
-// database connection
-require_once 'connect.php';
-
-
-$query = "SELECT id, name FROM author";
-$result = mysqli_query($conn, $query);
-
-$authors = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $author_id=$row['id'];
-    $author_name=$row['name'];
-    $authors[] = array('id' => $author_id, 'name' => $author_name);
-}
-
-$query = "SELECT id, name FROM style";
-$result = mysqli_query($conn, $query);
-
-$styles = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $style_id=$row['id'];
-    $style_name=$row['name'];
-    $styles[] = array('id' => $style_id, 'name' => $style_name);
-}
-
-$query = "SELECT id, name FROM location";
-$result = mysqli_query($conn, $query);
-
-$locations = array();
-while ($row = mysqli_fetch_assoc($result)) {
-    $location_id=$row['id'];
-    $location_name=$row['name'];
-    $locations[] = array('id' => $location_id, 'name' => $location_name);
-}
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,6 +44,13 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     </nav>
 
+    <script>
+        let pageNum = 1;
+        let checkedAuthors=[];
+        let checkedLocations=[];
+        let checkedStyles=[];
+    </script>
+
     <!-- Modal for Author filter-->
     <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -90,10 +60,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-search">
-                    <script>
-                        let checkedAuthors=[];
-                    </script>
-                    <input type="text" id="searchInput" class="form-control" placeholder="Wyszukaj autora" oninput="checkedAuthors = getCheckedAuthors(checkedAuthors); generateAuthors(this.value, checkedAuthors);">
+                    <input type="text" id="searchInputAuthor" class="form-control" placeholder="Wyszukaj autora" oninput="checkedAuthors = getCheckedAuthors(checkedAuthors); 
+                    generateAuthors(this.value, checkedAuthors);">
                 </div>
                 <div class="modal-body" id="authorList">
                 <script>
@@ -104,7 +72,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors))">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="authorFilterButton" 
+                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations))">Filtruj
+                    </button>
                 </div>
             </div>
         </div>
@@ -118,21 +88,22 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <h5 class="modal-title" id="locationModalLabel">Wybierz autora</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <?php
-                    foreach ($locations as $location) {
-                        echo '<div class="form-check">';
-                        echo '<input class="form-check-input" type="checkbox" value="' . $location['id'] . '" id="' . $location['id'] . '">';
-                        echo '<label class="form-check-label" for="' . $location['id'] . '">';
-                        echo $location['name'];
-                        echo '</label>';
-                        echo '</div>';
-                    }
-                    ?>
+                <div class="modal-search">
+                    <input type="text" id="searchInputLocation" class="form-control" placeholder="Wyszukaj autora" oninput="checkedLocations = getCheckedLocations(checkedLocations); 
+                    generateLocations(this.value, checkedLocations);">
+                </div>
+                <div class="modal-body" id="locationList">
+                <script>
+                    $(document).ready(function() {
+                        generateLocations('');
+                    });
+                </script>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="locationFilterButton" 
+                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations))">Filtruj
+                    </button>
                 </div>
             </div>
         </div>
@@ -145,21 +116,22 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <h5 class="modal-title" id="styleModalLabel">Wybierz autora</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <?php
-                    foreach ($styles as $style) {
-                        echo '<div class="form-check">';
-                        echo '<input class="form-check-input" type="checkbox" value="' . $style['id'] . '" id="' . $style['id'] . '">';
-                        echo '<label class="form-check-label" for="' . $style['id'] . '">';
-                        echo $style['name'];
-                        echo '</label>';
-                        echo '</div>';
-                    }
-                    ?>
+                <div class="modal-search">
+                    <input type="text" id="searchInputStyle" class="form-control" placeholder="Wyszukaj autora" oninput="checkedStyles = getCheckedStyles(checkedStyles); 
+                    generateStyles(this.value, checkedStyles);">
+                </div>
+                <div class="modal-body" id="styleList">
+                <script>
+                    $(document).ready(function() {
+                        generateStyles('');
+                    });
+                </script>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="filterButton" onclick="generateGallery(pageNum=1)">Filtruj</button>
+                    <button type="button" class="btn btn-primary" id="styleFilterButton" 
+                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations))">Filtruj
+                    </button>
                 </div>
             </div>
         </div>
@@ -239,7 +211,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     <div id="gallery" class="row mb-10">
         <script>
         $(document).ready(function() {
-            let pageNum = 1;
             generateGallery(pageNum);
         });
         </script>

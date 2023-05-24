@@ -1,33 +1,12 @@
-// Wait for the page to finish loading before running the code
-window.addEventListener('load', function() {
-    // Get the curtain elements
-    var curtainLeft = document.querySelector('.curtain-left');
-    var curtainRight = document.querySelector('.curtain-right');
-
-    // Add the 'open' class to the curtain elements to open them by default
-    curtainLeft.classList.add('open');
-    curtainRight.classList.add('open');
-});
-
-
-function generateGallery(pageNum, checkedAuthors) {
-    // Pobranie wartości zaznaczonych autorów, stylów oraz lokalizacji
-    const selectedStyles = $('#styleModal [type=checkbox]:checked').map(function() {
-        return $(this).val();
-    }).get();
-    
-    const selectedLocations = $('#locationModal [type=checkbox]:checked').map(function() {
-        return $(this).val();
-    }).get();
-
-    // Wysłanie zapytania AJAX do generate_gallery.php z wybranymi autorami, stylami oraz lokalizacjami jako dane POST
+function generateGallery(pageNum, checkedAuthors, checkedStyles, checkedLocations) {
+// Wysłanie zapytania AJAX do generate_gallery.php z wybranymi autorami, stylami oraz lokalizacjami jako dane POST
     $.ajax({
         url: 'generate_gallery.php',
         type: 'POST',
         data: {
             selectedAuthors: checkedAuthors,
-            selectedStyles: selectedStyles,
-            selectedLocations: selectedLocations,
+            selectedStyles: checkedStyles,
+            selectedLocations: checkedLocations,
             pageNum: pageNum
         },
         success: function(html) {
@@ -84,7 +63,7 @@ function createPageButton(pageNumber) {
             animateGalleryTransition('animate-from-bottom');
             animateButtonsTransition('animate-from-bottom');
             setTimeout(function() {
-                generateGallery(pageNumber);
+                generateGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations));
                 pageNum=pageNumber;
             }, 2000);
         }
@@ -105,9 +84,33 @@ function generateAuthors(searchTerm, checkedAuthors) {
         }
     });
 }
+
+function generateStyles(searchTerm, checkedStyles) {
+    $.ajax({
+        url: 'generate_styles.php',
+        type: 'GET',
+        data: { search: searchTerm, checkedStyles: checkedStyles },
+        success: function(response) {
+            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
+            $('#styleList').html(response);
+        }
+    });
+}
+
+function generateLocations(searchTerm, checkedLocations) {
+    $.ajax({
+        url: 'generate_locations.php',
+        type: 'GET',
+        data: { search: searchTerm, checkedLocations: checkedLocations },
+        success: function(response) {
+            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
+            $('#locationList').html(response);
+        }
+    });
+}
 function getCheckedAuthors(checkedAuthors) {
     // Pobierz zaznaczone checkboxy
-    $('.form-check-input').each(function() {
+    $('#authorModal .form-check-input').each(function() {
         const authorId = $(this).val();
         const authorIndex = checkedAuthors.indexOf(authorId);
 
@@ -125,4 +128,46 @@ function getCheckedAuthors(checkedAuthors) {
     });
 
     return checkedAuthors;
+}
+function getCheckedStyles(checkedStyles) {
+    // Pobierz zaznaczone checkboxy
+    $('#styleModal .form-check-input').each(function() {
+        const styleId = $(this).val();
+        const styleIndex = checkedStyles.indexOf(styleId);
+
+        if ($(this).is(':checked')) {
+            // Dodaj autora do listy, jeśli jeszcze go tam nie ma
+            if (styleIndex === -1) {
+                checkedStyles.push(styleId);
+            }
+        } else {
+            // Usuń autora z listy, jeśli jest na liście
+            if (styleIndex !== -1) {
+                checkedStyles.splice(styleIndex, 1);
+            }
+        }
+    });
+
+    return checkedStyles;
+}
+function getCheckedLocations(checkedLocations) {
+    // Pobierz zaznaczone checkboxy
+    $('#locationModal .form-check-input').each(function() {
+        const locationId = $(this).val();
+        const locationIndex = checkedLocations.indexOf(locationId);
+
+        if ($(this).is(':checked')) {
+            // Dodaj autora do listy, jeśli jeszcze go tam nie ma
+            if (locationIndex === -1) {
+                checkedLocations.push(locationId);
+            }
+        } else {
+            // Usuń autora z listy, jeśli jest na liście
+            if (locationIndex !== -1) {
+                checkedLocations.splice(locationIndex, 1);
+            }
+        }
+    });
+
+    return checkedLocations;
 }

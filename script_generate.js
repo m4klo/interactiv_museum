@@ -115,7 +115,7 @@ function prevPage() {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            generateGallery(pageNum);
+            generateGallery(pageNum, checkedAuthors, checkedStyles, checkedLocations);
         }, 2000);
     }
 }
@@ -126,7 +126,7 @@ function nextPage(total) {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            generateGallery(pageNum);
+            generateGallery(pageNum, checkedAuthors, checkedStyles, checkedLocations);
         }, 2000);
     }
 }

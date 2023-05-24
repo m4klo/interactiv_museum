@@ -3,19 +3,28 @@ session_start();
 // database connection
 require_once 'connect.php';
 
+$selectedAuthors = [];
+$selectedStyles = [];
+$selectedLocations = [];
+$pageNum = 1;
+
 if (isset($_POST['selectedAuthors'])) {
     $selectedAuthors = $_POST['selectedAuthors'];
 }
+
 if (isset($_POST['selectedStyles'])) {
     $selectedStyles = $_POST['selectedStyles'];
 }
+
 if (isset($_POST['selectedLocations'])) {
     $selectedLocations = $_POST['selectedLocations'];
 }
+
 if (isset($_POST['pageNum'])) {
     $pageNum = $_POST['pageNum'];
 }
-// Retrieve photo paths
+
+// Tworzenie zapytania SQL
 $query = "SELECT p.id, p.title, p.picture_link, p.id_location, a.name AS author_name, s.name AS style_name, l.name AS location_name
 FROM painting p
 JOIN author a ON p.id_author = a.id
@@ -25,19 +34,19 @@ JOIN location l ON p.id_location = l.id";
 $whereClause = array();
 
 if (!empty($selectedAuthors)) {
-    $whereClause[] = 'a.id IN (' . implode(',', $selectedAuthors) . ')';
+    $whereClause[] = 'p.id_author IN (' . implode(',', $selectedAuthors) . ')';
 }
 
 if (!empty($selectedStyles)) {
-    $whereClause[] = 's.id IN (' . implode(',', $selectedStyles) . ')';
+    $whereClause[] = 'p.id_style IN (' . implode(',', $selectedStyles) . ')';
 }
 
 if (!empty($selectedLocations)) {
-    $whereClause[] = 'l.id IN (' . implode(',', $selectedLocations) . ')';
+    $whereClause[] = 'p.id_location IN (' . implode(',', $selectedLocations) . ')';
 }
 
 if (!empty($whereClause)) {
-    $query .= ' WHERE ' . implode(' OR ', $whereClause);
+    $query .= ' WHERE ' . implode(' AND ', $whereClause);
 }
 
 // Zdefiniuj liczbę wyników na stronę
