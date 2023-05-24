@@ -6,27 +6,51 @@ require_once 'connect.php';
 // Pobranie danych z formularza
 $username = $_POST['username'];
 $password = $_POST['password'];
+$isAdmin = isset($_POST['adminCheckbox']);
 
-// Znalezienie użytkownika o podanej nazwie
-$sql = "SELECT * FROM curator WHERE login='$username'";
-$result = mysqli_query($conn, $sql);
-$user = mysqli_fetch_assoc($result);
 
-if ($user) {
-    // Sprawdzenie, czy hasło jest poprawne
-    if (password_verify($password, $user['password'])) {
-        // Hasło jest poprawne - zaloguj użytkownika
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['login'];
-        $_SESSION['location_id'] = $user['id_location'];
-        echo 'success';
-        exit;
+if ($isAdmin) {
+    $sql = "SELECT * FROM administrator WHERE login='$username'";
+    $result = mysqli_query($conn, $sql);
+    $user = mysqli_fetch_assoc($result);
+    if ($user) {
+        // Sprawdzenie, czy hasło jest poprawne
+        if (password_verify($password, $user['password'])) {
+            // Hasło jest poprawne - zaloguj użytkownika
+            $_SESSION['location_id'] = 'administrator';
+            header('Location: collection_administrator.php');
+            exit;
+        } else {
+            // Hasło jest niepoprawne
+            echo 'error';
+        }
     } else {
-        // Hasło jest niepoprawne
+        // Użytkownik o podanej nazwie nie został znaleziony
         echo 'error';
-    }
-} else {
-    // Użytkownik o podanej nazwie nie został znaleziony
-    echo 'error';
-}  
+    }  
+}
+else{
+    // Znalezienie użytkownika o podanej nazwie
+    $sql = "SELECT * FROM curator WHERE login='$username' AND status='verified'";
+    $result = mysqli_query($conn, $sql);
+    $user = mysqli_fetch_assoc($result);
+
+    if ($user) {
+        // Sprawdzenie, czy hasło jest poprawne
+        if (password_verify($password, $user['password'])) {
+            // Hasło jest poprawne - zaloguj użytkownika
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['login'];
+            $_SESSION['location_id'] = $user['id_location'];
+            header('Location: collection_curator.php');
+            exit;
+        } else {
+            // Hasło jest niepoprawne
+            echo 'error';
+        }
+    } else {
+        // Użytkownik o podanej nazwie nie został znaleziony
+        echo 'error';
+    }  
+}
 ?>

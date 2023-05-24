@@ -1,6 +1,8 @@
 function register(){
     // Pobranie danych z formularza
     const username = $('#register_username').val();
+    const name = $('#register_name').val();
+    const surname = $('#register_surname').val();
     const email = $('#register_email').val();
     const password = $('#register_password').val();
     const location = $('#register_location').val();
@@ -10,6 +12,8 @@ function register(){
         type: "POST",
         data: {
             username: username,
+            name: name,
+            surname: surname,
             email: email,
             password: password,
             location: location
@@ -37,7 +41,11 @@ function login(){
         success: function(data) {
         if (data == 'success') {
             window.location.href = "collection_curator.php";
-        } else {
+        }
+        else if(data == 'success_admin'){
+            window.location.href = "collection_administrator.php";
+        }
+        else {
             alert("Błąd logowania. Spróbuj ponownie.");
         }
         },

@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if ($_SESSION['location_id'] !== 'administrator') {
+    // Przekieruj użytkownika na inną stronę lub wyświetl komunikat o braku dostępu
+    header('Location: collection_user.php');
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-    <script src="script_register_login.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,10 +31,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Zbiory muzeów narodowych</a>
+                        <a class="nav-link" href="collection_administrator.php">Zbiory muzeów narodowych</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="verification.php">Weryfikacja</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#authorModal">Filtruj autora</button>
                     </li>
@@ -34,16 +48,12 @@
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#locationModal">Filtruj lokalizację</button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#registerModal">Zarejestruj</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Zaloguj się</button>
+                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal">Wyloguj</button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-
     <script>
         let pageNum = 1;
         let checkedAuthors=[];
@@ -136,85 +146,23 @@
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="registerModalLabel">Rejestracja</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Potwierdzenie wylogowania</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </button>
         </div>
         <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="register_username">Nazwa użytkownika:</label>
-                <input type="text" class="form-control" id="register_username" name="register_username" required>
-            </div>
-            <div class="form-group">
-                <label for="register_name">Imie:</label>
-                <input type="text" class="form-control" id="register_name" name="register_=name" required>
-            </div>
-            <div class="form-group">
-                <label for="register_username">Nazwisko:</label>
-                <input type="text" class="form-control" id="register_surname" name="register_surname" required>
-            </div>
-            <div class="form-group">
-                <label for="register_email">Adres e-mail:</label>
-                <input type="email" class="form-control" id="register_email" name="register_email" required>
-            </div>
-            <div class="form-group">
-                <label for="register_password">Hasło:</label>
-                <input type="password" class="form-control" id="register_password" name="register_password" required>
-            </div>
-            <div class="form-group">
-            <label for="location">Lokalizacja:</label>
-            <select class="form-control selectpicker" id="register_location" name="register_location" data-live-search="true" required>
-                <script>
-                    getLocations();
-                </script>
-            </select>
-            </div>
-        </form>
+            Czy na pewno chcesz się wylogować?
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" onclick="register()">Zarejestruj się</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+            <a href="logout.php" class="btn btn-primary">Wyloguj</a>
         </div>
         </div>
     </div>
     </div>
-
-    <!-- Modal Login Form -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Logowanie</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="login.php" method="post">
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Nazwa użytkownika</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Hasło</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="adminCheckbox" name="adminCheckbox">
-                            <label class="form-check-label" for="adminCheckbox">Administrator</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Zaloguj</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     
     <div class="container mt-5">
     <div id="gallery" class="row mb-10">

@@ -171,3 +171,23 @@ function getCheckedLocations(checkedLocations) {
 
     return checkedLocations;
 }
+function getLocations(){
+    $.ajax({
+        type: 'GET',
+        url: 'generate_register_locations.php',
+        success: function(response) {
+            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
+            $('#register_location').html(response);
+        }
+    });
+}
+function getVerificationTable(){
+    $.ajax({
+        type: 'GET',
+        url: 'generate_verification_table.php',
+        success: function(response) {
+            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
+            $('#verification-table').html(response);
+        }
+    });
+}

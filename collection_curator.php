@@ -1,6 +1,13 @@
 <?php
 session_start();
+
+if ($_SESSION['user_id'] === NULL) {
+    // Przekieruj użytkownika na inną stronę lub wyświetl komunikat o braku dostępu
+    header('Location: collection_user.php');
+    exit;
+}
 ?>
+
 
 <!DOCTYPE html>
 <html>

@@ -12,7 +12,7 @@ $(document).ready(function() {
         $("#myModal-content").attr("src", src);
         $("#myModal-title").text(title);
         $("#myModal-author").text(author);
-        if (location_id == session_location_id) {
+        if (location_id == session_location_id || session_location_id == 'administrator') {
             $("#edit-button").show(); // Pokaż przycisk "Edytuj"
             $("#edit-button").data("id", id);
         }
