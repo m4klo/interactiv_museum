@@ -72,7 +72,7 @@ function createPageButton(pageNumber) {
     let container = document.getElementById('pageButtonsContainer');
     container.appendChild(button);
 }
-  
+
 function generateAuthors(searchTerm, checkedAuthors) {
     $.ajax({
         url: 'generate_authors.php',

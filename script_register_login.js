@@ -38,7 +38,7 @@ $(document).ready(function() {
 function login() {
     const username = $('#username').val();
     const password = $('#password').val();
-    const isAdmin = $('#adminCheckbox').prop('checked');
+    const isAdmin = $('#adminCheckbox').is(':checked');
 
     console.log(isAdmin); // Dodaj ten console.log
 

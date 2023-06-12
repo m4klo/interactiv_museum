@@ -6,10 +6,10 @@ require_once 'connect.php';
 // Pobranie danych z formularza
 $username = $_POST['username'];
 $password = $_POST['password'];
-$isAdmin = isset($_POST['isAdmin']);
+$isAdmin = $_POST['isAdmin'];
 
 
-if ($isAdmin) {
+if ($isAdmin === true) {
     $sql = "SELECT * FROM administrator WHERE login='$username'";
     $result = mysqli_query($conn, $sql);
     $user = mysqli_fetch_assoc($result);
