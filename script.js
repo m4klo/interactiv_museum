@@ -1,11 +1,11 @@
-function generateGallery(pageNum, checkedAuthors, checkedStyles, checkedLocations) {
+function generateGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocations) {
 // Wysłanie zapytania AJAX do generate_gallery.php z wybranymi autorami, stylami oraz lokalizacjami jako dane POST
     $.ajax({
         url: 'generate_gallery.php',
         type: 'POST',
         data: {
             selectedAuthors: checkedAuthors,
-            selectedStyles: checkedStyles,
+            selectedcenturies: checkedCenturies,
             selectedLocations: checkedLocations,
             pageNum: pageNum
         },
@@ -63,7 +63,7 @@ function createPageButton(pageNumber) {
             animateGalleryTransition('animate-from-bottom');
             animateButtonsTransition('animate-from-bottom');
             setTimeout(function() {
-                generateGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations));
+                generateGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
                 pageNum=pageNumber;
             }, 2000);
         }
@@ -85,14 +85,14 @@ function generateAuthors(searchTerm, checkedAuthors) {
     });
 }
 
-function generateStyles(searchTerm, checkedStyles) {
+function generateCenturies(searchTerm, checkedCenturies) {
     $.ajax({
-        url: 'generate_styles.php',
+        url: 'generate_centuries.php',
         type: 'GET',
-        data: { search: searchTerm, checkedStyles: checkedStyles },
+        data: { search: searchTerm, checkedCenturies: checkedCenturies },
         success: function(response) {
             // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
-            $('#styleList').html(response);
+            $('#centuryList').html(response);
         }
     });
 }
@@ -129,26 +129,26 @@ function getCheckedAuthors(checkedAuthors) {
 
     return checkedAuthors;
 }
-function getCheckedStyles(checkedStyles) {
+function getCheckedCenturies(checkedCenturies) {
     // Pobierz zaznaczone checkboxy
-    $('#styleModal .form-check-input').each(function() {
-        const styleId = $(this).val();
-        const styleIndex = checkedStyles.indexOf(styleId);
+    $('#centuryModal .form-check-input').each(function() {
+        const centuryId = $(this).val();
+        const centuryIndex = checkedCenturies.indexOf(centuryId);
 
         if ($(this).is(':checked')) {
             // Dodaj autora do listy, jeśli jeszcze go tam nie ma
-            if (styleIndex === -1) {
-                checkedStyles.push(styleId);
+            if (centuryIndex === -1) {
+                checkedCenturies.push(centuryId);
             }
         } else {
             // Usuń autora z listy, jeśli jest na liście
-            if (styleIndex !== -1) {
-                checkedStyles.splice(styleIndex, 1);
+            if (centuryIndex !== -1) {
+                checkedCenturies.splice(centuryIndex, 1);
             }
         }
     });
 
-    return checkedStyles;
+    return checkedCenturies;
 }
 function getCheckedLocations(checkedLocations) {
     // Pobierz zaznaczone checkboxy

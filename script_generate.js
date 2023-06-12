@@ -144,7 +144,7 @@ function prevPage() {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            generateGallery(pageNum, checkedAuthors, checkedStyles, checkedLocations);
+            generateGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocations);
         }, 2000);
     }
 }
@@ -155,7 +155,7 @@ function nextPage(total) {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            generateGallery(pageNum, checkedAuthors, checkedStyles, checkedLocations);
+            generateGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocations);
         }, 2000);
     }
 }

@@ -28,7 +28,7 @@
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#authorModal">Filtruj autora</button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#styleModal">Filtruj styl</button>
+                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#centuryModal">Filtruj wiek</button>
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#locationModal">Filtruj lokalizację</button>
@@ -48,7 +48,7 @@
         let pageNum = 1;
         let checkedAuthors=[];
         let checkedLocations=[];
-        let checkedStyles=[];
+        let checkedCenturies=[];
     </script>
 
     <!-- Modal for Author filter-->
@@ -73,7 +73,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="authorFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations))">Filtruj
+                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
                     </button>
                 </div>
             </div>
@@ -85,7 +85,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="locationModalLabel">Wybierz autora</h5>
+                    <h5 class="modal-title" id="locationModalLabel">Wybierz lokalizacje</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-search">
@@ -102,35 +102,35 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="locationFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations))">Filtruj
+                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
                     </button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal for Style filter-->
-    <div class="modal fade" id="styleModal" tabindex="-1" aria-labelledby="styleModalLabel" aria-hidden="true">
+    <!-- Modal for Century filter-->
+    <div class="modal fade" id="centuryModal" tabindex="-1" aria-labelledby="centuryModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="styleModalLabel">Wybierz autora</h5>
+                    <h5 class="modal-title" id="centuryModalLabel">Wybierz wiek</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-search">
-                    <input type="text" id="searchInputStyle" class="form-control" placeholder="Wyszukaj autora" oninput="checkedStyles = getCheckedStyles(checkedStyles); 
-                    generateStyles(this.value, checkedStyles);">
+                    <input type="text" id="searchInputcentury" class="form-control" placeholder="Wyszukaj autora" oninput="checkedCenturies = getCheckedCenturies(checkedCenturies); 
+                    generateCenturies(this.value, checkedCenturies);">
                 </div>
-                <div class="modal-body" id="styleList">
+                <div class="modal-body" id="centuryList">
                 <script>
                     $(document).ready(function() {
-                        generateStyles('');
+                        generateCenturies('');
                     });
                 </script>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-                    <button type="button" class="btn btn-primary" id="styleFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedStyles(checkedStyles), getCheckedLocations(checkedLocations))">Filtruj
+                    <button type="button" class="btn btn-primary" id="centuryFilterButton" 
+                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
                     </button>
                 </div>
             </div>

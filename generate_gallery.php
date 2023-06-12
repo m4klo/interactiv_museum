@@ -4,7 +4,7 @@ session_start();
 require_once 'connect.php';
 
 $selectedAuthors = [];
-$selectedStyles = [];
+$selectedcenturies = [];
 $selectedLocations = [];
 $pageNum = 1;
 
@@ -12,8 +12,8 @@ if (isset($_POST['selectedAuthors'])) {
     $selectedAuthors = $_POST['selectedAuthors'];
 }
 
-if (isset($_POST['selectedStyles'])) {
-    $selectedStyles = $_POST['selectedStyles'];
+if (isset($_POST['selectedcenturies'])) {
+    $selectedcenturies = $_POST['selectedcenturies'];
 }
 
 if (isset($_POST['selectedLocations'])) {
@@ -25,10 +25,10 @@ if (isset($_POST['pageNum'])) {
 }
 
 // Tworzenie zapytania SQL
-$query = "SELECT p.id, p.title, p.picture_link, p.id_location, p.wiki_link, a.name AS author_name, s.name AS style_name, l.name AS location_name
+$query = "SELECT p.id, p.title, p.picture_link, p.id_location, p.wiki_link, a.name AS author_name, s.age AS century_age, l.name AS location_name
 FROM painting p
 JOIN author a ON p.id_author = a.id
-JOIN style s ON p.id_style = s.id
+JOIN century s ON p.id_century = s.id
 JOIN location l ON p.id_location = l.id";
 
 $whereClause = array();
@@ -37,8 +37,8 @@ if (!empty($selectedAuthors)) {
     $whereClause[] = 'p.id_author IN (' . implode(',', $selectedAuthors) . ')';
 }
 
-if (!empty($selectedStyles)) {
-    $whereClause[] = 'p.id_style IN (' . implode(',', $selectedStyles) . ')';
+if (!empty($selectedcenturies)) {
+    $whereClause[] = 'p.id_century IN (' . implode(',', $selectedcenturies) . ')';
 }
 
 if (!empty($selectedLocations)) {
