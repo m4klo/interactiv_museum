@@ -180,7 +180,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
-            <button type="button" class="btn btn-primary" onclick="register()">Zarejestruj się</button>
+            <button type="button" class="btn btn-primary" onclick="register()" data-bs-dismiss="modal">Zarejestruj się</button>
         </div>
         </div>
     </div>
@@ -208,7 +208,7 @@
                             <input type="checkbox" class="form-check-input" id="adminCheckbox" name="adminCheckbox">
                             <label class="form-check-label" for="adminCheckbox">Administrator</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Zaloguj</button>
+                        <input type="button" class="btn btn-primary" value="Zaloguj" onclick="login()">
                     </form>
                 </div>
             </div>

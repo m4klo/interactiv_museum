@@ -27,30 +27,42 @@ function register(){
     });
 }
 
-function login(){
-    const username = $('#login_username').val();
-    const password = $('#login_password').val();
+$(document).ready(function() {
+    // Obsługa zdarzenia submit dla formularza logowania wewnątrz modala
+    $('#login_form').submit(function(event) {
+        event.preventDefault(); // Zatrzymanie domyślnego działania przeglądarki
+        login(); // Wywołanie funkcji logowania
+    });
+});
+
+function login() {
+    const username = $('#username').val();
+    const password = $('#password').val();
+    const isAdmin = $('#adminCheckbox').prop('checked');
+
+    console.log(isAdmin); // Dodaj ten console.log
 
     $.ajax({
+        
         type: "POST",
         url: "login.php",
         data: {
-            username: username, 
-            password: password
+            username: username,
+            password: password,
+            isAdmin: isAdmin
         },
-        success: function(data) {
-        if (data == 'success') {
-            window.location.href = "collection_curator.php";
-        }
-        else if(data == 'success_admin'){
-            window.location.href = "collection_administrator.php";
-        }
-        else {
-            alert("Błąd logowania. Spróbuj ponownie.");
-        }
+        dataType: 'json', // Określenie typu danych jako JSON
+        success: function (data) {
+            if (data.status === 'success') {
+                window.location.href = data.redirect;
+            } else if (data.status === 'success_admin') {
+                window.location.href = data.redirect;
+            } else {
+                alert("Błąd logowania. Spróbuj ponownie.");
+            }
         },
-        error: function(xhr, status, error) {
-        console.log("Wystąpił błąd: " + error);
+        error: function (xhr, status, error) {
+            console.log("Wystąpił błąd: " + error);
         }
     });
 }

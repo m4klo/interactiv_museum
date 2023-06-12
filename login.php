@@ -6,7 +6,7 @@ require_once 'connect.php';
 // Pobranie danych z formularza
 $username = $_POST['username'];
 $password = $_POST['password'];
-$isAdmin = isset($_POST['adminCheckbox']);
+$isAdmin = isset($_POST['isAdmin']);
 
 
 if ($isAdmin) {
@@ -18,18 +18,17 @@ if ($isAdmin) {
         if (password_verify($password, $user['password'])) {
             // Hasło jest poprawne - zaloguj użytkownika
             $_SESSION['location_id'] = 'administrator';
-            header('Location: collection_administrator.php');
-            exit;
+            $response = array('status' => 'success_admin', 'redirect' => 'collection_administrator.php');
         } else {
             // Hasło jest niepoprawne
-            echo 'error';
+            $response = array('status' => 'error');
         }
     } else {
         // Użytkownik o podanej nazwie nie został znaleziony
-        echo 'error';
+        $response = array('status' => 'error');
     }  
 }
-else{
+else {
     // Znalezienie użytkownika o podanej nazwie
     $sql = "SELECT * FROM curator WHERE login='$username' AND status='verified'";
     $result = mysqli_query($conn, $sql);
@@ -42,15 +41,20 @@ else{
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['login'];
             $_SESSION['location_id'] = $user['id_location'];
-            header('Location: collection_curator.php');
-            exit;
+            $response = array('status' => 'success', 'redirect' => 'collection_curator.php');
         } else {
             // Hasło jest niepoprawne
-            echo 'error';
+            $response = array('status' => 'error');
         }
     } else {
         // Użytkownik o podanej nazwie nie został znaleziony
-        echo 'error';
+        $response = array('status' => 'error');
     }  
 }
+
+// Zwróć odpowiedź jako JSON
+header('Content-Type: application/json');
+echo json_encode($response);
+exit;
+
 ?>

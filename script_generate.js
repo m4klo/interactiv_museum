@@ -7,6 +7,8 @@ $(document).ready(function() {
         const location_id = $(this).data("id_location");
         const session_location_id = $("#edit-button").data("session-location-id");
         const id = $(this).data("id");
+        const wiki_link = $(this).data("wiki_link");
+        const wikiButton = $('<a>').attr('href', wiki_link).text('Przejdź do strony wiki');
         console.log(session_location_id);
         console.log(location_id);
         $("#myModal-content").attr("src", src);
@@ -21,6 +23,7 @@ $(document).ready(function() {
         }
         $("#myModal").fadeIn();
         $("#backButton").fadeIn();
+        $("#myModal-wiki").empty().append(wikiButton);
     });
 
     // Funkcja obsługująca przycisk "Zamknij"

@@ -25,7 +25,7 @@ if (isset($_POST['pageNum'])) {
 }
 
 // Tworzenie zapytania SQL
-$query = "SELECT p.id, p.title, p.picture_link, p.id_location, a.name AS author_name, s.name AS style_name, l.name AS location_name
+$query = "SELECT p.id, p.title, p.picture_link, p.id_location, p.wiki_link, a.name AS author_name, s.name AS style_name, l.name AS location_name
 FROM painting p
 JOIN author a ON p.id_author = a.id
 JOIN style s ON p.id_style = s.id
@@ -76,7 +76,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $author = $row['author_name'];
     $picture = $row['picture_link'];
     $id_loc = $row['id_location'];
-    $photos[] = array('id' => $id, 'title' => $title, 'picture_link' => $picture, 'author_name' => $author, 'id_location' => $id_loc);
+    $wiki_link = $row['wiki_link'];
+    $photos[] = array('id' => $id, 'title' => $title, 'picture_link' => $picture, 'author_name' => $author, 'wiki_link' => $wiki_link, 'id_location' => $id_loc);
 }
 
 ?>
@@ -91,7 +92,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             if ($photoIndex >= count($photos)) break;
             $photo = $photos[$photoIndex];
             echo '<div class="mb-20 gallery-image" data-page="' . ($pageNum + 1) . '">';
-            echo '<a href="' . $photo['picture_link'] . '" class="image-link" data-title="' . $photo['title'] . '" data-author="' . $photo['author_name'] . '" data-id_location="' . $photo['id_location'] .  '" data-id="' . $photo['id'] .'">';
+            echo '<a href="' . $photo['picture_link'] . '" class="image-link" data-title="' . $photo['title'] . '" data-author="' . $photo['author_name'] . '" data-id_location="' . $photo['id_location'] .  '" data-id="' . $photo['id'] .'" data-wiki_link="' . $photo['wiki_link'] .'">';
             echo '<img src="' . $photo['picture_link'] . '" class="img-thumbnail" alt="' . $photo['title'] . '">';
             echo '</a>';
             echo '</div>';
@@ -109,6 +110,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <img id="myModal-content" />
     <h4 id="myModal-title"></h4>
     <h5 id="myModal-author"></h5>
+    <h6 id="myModal-wiki"></h6>
     <button id="edit-button" data-session-location-id="<?php echo $_SESSION['location_id']; ?>" data-id="<?php echo $id; ?>" data-changed="false">Edytuj</button>
 </div>
 
@@ -119,8 +121,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>
     <span id="pageButtonsContainer"></span>
 </div>
-
-
 
 
 <script>
