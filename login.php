@@ -6,7 +6,7 @@ require_once 'connect.php';
 // Pobranie danych z formularza
 $username = $_POST['username'];
 $password = $_POST['password'];
-$isAdmin = $_POST['isAdmin'];
+$isAdmin = filter_var($_POST['isAdmin'], FILTER_VALIDATE_BOOLEAN);
 
 
 if ($isAdmin === true) {

@@ -24,49 +24,94 @@ $(window).on('beforeunload', function() {
     });
 });
 
-function generatePageButtons(totalPages) {
+function generatePageButtons(totalPages, currentPage) {
     let container = document.getElementById('pageButtonsContainer');
     container.innerHTML = '';
-  
-    let currentPage = 1;
-    let maxButtons = 10;
-  
+
+    let maxButtons = 9;
+    let endPage = 0;
+
     if (totalPages <= maxButtons) {
-    for (let i = 1; i <= totalPages; i++) {
-        createPageButton(i, currentPage);
-    }
+        for (let i = 1; i <= totalPages; i++) {
+            createPageButton(i, currentPage);
+        }
     } else {
-      let startPage = currentPage;
-      let endPage = startPage + maxButtons - 1;
-  
-    if (endPage > totalPages) {
-        endPage = totalPages;
-        startPage = endPage - maxButtons + 1;
+        let startPage = Math.max(1, currentPage - 4);
+        if (currentPage > 5) {
+            endPage = Math.min(totalPages, currentPage + 4);
+        } else {
+            endPage = 9;
+        }
+        if (startPage > 1) {
+            createEndButtons("<<", currentPage, totalPages);
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            createPageButton(i, currentPage);
+        }
+
+        if (endPage < totalPages) {
+            createEndButtons(">>", currentPage, totalPages);
+        }
     }
-  
-    for (let i = startPage; i <= endPage; i++) {
-        createPageButton(i);
-    }
-    }
-  
+
     container.classList.remove('hidden');
     container.style.textAlign = 'center';
-  }
+}
   
-function createPageButton(pageNumber) {
+  function createPageButton(pageNumber, currentPage) {
     let button = document.createElement('button');
     button.textContent = pageNumber;
     button.classList.add('page-button');
   
+    if (pageNumber === currentPage) {
+      button.classList.add('active');
+    }
+  
     button.addEventListener('click', function () {
-        if(pageNum!=pageNumber){
-            animateGalleryTransition('animate-from-bottom');
-            animateButtonsTransition('animate-from-bottom');
-            setTimeout(function() {
-                generateGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
-                pageNum=pageNumber;
-            }, 2000);
+      if (pageNumber !== currentPage) {
+        animateGalleryTransition('animate-from-bottom');
+        animateButtonsTransition('animate-from-bottom');
+        setTimeout(function () {
+          generateGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+          pageNum = pageNumber;
+        }, 2000);
+      }
+    });
+  
+    let container = document.getElementById('pageButtonsContainer');
+    container.appendChild(button);
+}
+function createEndButtons(sign, pageNumber, totalPages) {
+    let button = document.createElement('button');
+    button.textContent = sign;
+    button.classList.add('page-button');
+    button.setAttribute('data-total-pages', totalPages);
+  
+    button.addEventListener('click', function () {
+      let currentPage = pageNumber;
+      let totalPages = parseInt(this.getAttribute('data-total-pages'));
+  
+      if (sign === "<<") {
+        if (currentPage !== 1) {
+          animateGalleryTransition('animate-from-bottom');
+          animateButtonsTransition('animate-from-bottom');
+          setTimeout(function () {
+            generateGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            pageNum = 1;
+          }, 2000);
         }
+      }
+      if (sign === ">>") {
+        if (currentPage !== totalPages) {
+          animateGalleryTransition('animate-from-bottom');
+          animateButtonsTransition('animate-from-bottom');
+          setTimeout(function () {
+            generateGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            pageNum = totalPages;
+          }, 2000);
+        }
+      }
     });
   
     let container = document.getElementById('pageButtonsContainer');

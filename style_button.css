@@ -41,6 +41,12 @@
   align-items: center;
 }
   
+.page-button.active {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 0 0 4px #333;
+}
+
 .page-button {
   display: inline-block;
   margin-top: 1%;
@@ -55,11 +61,6 @@
   
 .page-button:hover {
   background-color: #666;
-}
-  
-.page-button.active {
-  color: #fff;
-  background-color: #333;
 }
 
 .animate-left {

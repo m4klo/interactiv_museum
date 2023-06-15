@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Zbiory muzeów narodowych</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
@@ -53,7 +54,7 @@
 
     <!-- Modal for Author filter-->
     <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable"">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="authorModalLabel">Wybierz autora</h5>
@@ -69,6 +70,14 @@
                         generateAuthors('');
                     });
                 </script>
+                <style>
+                    .modal-content {
+                        display: sticky;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        height: 100%;
+                    }
+                </style>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
@@ -82,7 +91,7 @@
 
     <!-- Modal for Location filter-->
     <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable"">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="locationModalLabel">Wybierz lokalizacje</h5>
@@ -110,7 +119,7 @@
     </div>
     <!-- Modal for Century filter-->
     <div class="modal fade" id="centuryModal" tabindex="-1" aria-labelledby="centuryModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable"">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="centuryModalLabel">Wybierz wiek</h5>
@@ -139,7 +148,7 @@
 
 
     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog  modal-dialog-scrollable" role="document">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="registerModalLabel">Rejestracja</h5>
@@ -188,7 +197,7 @@
 
     <!-- Modal Login Form -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="loginModalLabel">Logowanie</h5>

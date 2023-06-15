@@ -12,6 +12,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Zbiory muzeów narodowych</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
@@ -63,7 +64,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
 
     <!-- Modal for Author filter-->
     <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable"">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="authorModalLabel">Wybierz autora</h5>
@@ -92,7 +93,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
 
     <!-- Modal for Location filter-->
     <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable"">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="locationModalLabel">Wybierz lokalizacje</h5>
@@ -120,7 +121,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
     </div>
     <!-- Modal for Century filter-->
     <div class="modal fade" id="centuryModal" tabindex="-1" aria-labelledby="centuryModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable"">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="centuryModalLabel">Wybierz wiek powstania</h5>
