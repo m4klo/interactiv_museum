@@ -148,10 +148,10 @@ function prevPage() {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+            if (width <= 1024 && width > 768 ) {
                 generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 720){
+            else if(width <= 768){
                 generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -167,10 +167,10 @@ function nextPage(total) {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+            if (width <= 1024 && width > 768) {
                 generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 720){
+            else if(width <= 768){
                 generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {

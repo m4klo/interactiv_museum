@@ -28,19 +28,21 @@ if ($_SESSION['location_id'] !== 'administrator') {
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-                <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="collection_administrator.php">Zbiory muzeów narodowych</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="verification.php">Weryfikacja</a>
-                        </li>
-                </ul>
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav flex-column">
                     <li class="nav-item">
-                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal">Wyloguj</button>
+                        <a class="nav-link" href="collection_administrator.php">Zbiory muzeów narodowych</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="verification.php">Weryfikacja</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal">Wyloguj</button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 

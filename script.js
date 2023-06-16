@@ -107,10 +107,10 @@ function generatePageButtons(totalPages, currentPage) {
         animateGalleryTransition('animate-from-bottom');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function () {
-            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+            if (width <= 1024 && width > 768) {
                 generateMobileGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 720){
+            else if(width <= 768){
                 generatePhoneGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -139,10 +139,10 @@ function createEndButtons(sign, pageNumber, totalPages) {
           animateGalleryTransition('animate-from-bottom');
           animateButtonsTransition('animate-from-bottom');
           setTimeout(function () {
-            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+            if (width <= 1024 && width > 768) {
                 generateMobileGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 720){
+            else if(width <= 768){
                 generatePhoneGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -158,10 +158,10 @@ function createEndButtons(sign, pageNumber, totalPages) {
           animateGalleryTransition('animate-from-bottom');
           animateButtonsTransition('animate-from-bottom');
           setTimeout(function () {
-            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+            if (width <= 1024 && width > 768) {
                 generateMobileGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 720){
+            else if(width <= 768){
                 generatePhoneGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -296,5 +296,7 @@ function getVerificationTable(){
     });
 } 
 window.addEventListener('resize', function() {
+    if($(window).width()==1024 || $(window).width()==768 || $(window).width()==1440){
       location.reload();
+    }
 });

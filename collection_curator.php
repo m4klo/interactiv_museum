@@ -58,12 +58,11 @@ if ($_SESSION['user_id'] === NULL) {
         let checkedLocations=[];
         let checkedCenturies=[];
         let width = $(window).width();
-        let height = $(document).height()-1250;
     </script>
 
     <!-- Modal for Author filter-->
     <div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable"">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="authorModalLabel">Wybierz autora</h5>
@@ -83,10 +82,10 @@ if ($_SESSION['user_id'] === NULL) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="authorFilterButton" 
-                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                    onclick="if (width <= 1024 && width > 768) {
                             generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
                         }
-                        else if(width <= 720){
+                        else if(width <= 768){
                             generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
                         }
                         else {
@@ -120,10 +119,10 @@ if ($_SESSION['user_id'] === NULL) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="locationFilterButton" 
-                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                    onclick="if (width <= 1024 && width > 768) {
                             generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
                         }
-                        else if(width <= 720){
+                        else if(width <= 768){
                             generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
                         }
                         else {
@@ -156,10 +155,10 @@ if ($_SESSION['user_id'] === NULL) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="centuryFilterButton" 
-                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                    onclick="if (width <= 1024 && width > 768) {
                             generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
                         }
-                        else if(width <= 720){
+                        else if(width <= 768){
                             generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
                         }
                         else {
@@ -191,12 +190,11 @@ if ($_SESSION['user_id'] === NULL) {
     <div class="container mt-5">
     <div id="gallery" class="row mb-10 gallery-container">
         <script>
-            console.log(height);
         $(document).ready(function() {
-            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+            if (width <= 1000 && width > 768) {
                 generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 720){
+            else if(width <= 768){
                 generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {

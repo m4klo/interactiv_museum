@@ -10,6 +10,15 @@
   display: block; /* Ustawienie przycisków jako bloki */
   margin: 0 5px;
 }
+@media (max-width: 1024px) {
+  .prev-btn,
+  .next-btn {
+    /* Twoje dostosowane style dla ekranów o szerokości <= 1440px */
+    font-size: 20px;
+    padding: 16px 16px;
+    margin: 0 6px;
+  }
+}
 
 .prev-btn:hover,
 .next-btn:hover {
@@ -57,6 +66,11 @@
   color: #fff;
   font-size: 16px;
   cursor: pointer;
+}
+@media (max-width: 1024px) {
+  .page-button{
+    padding: 10px 15px;
+  }
 }
   
 .page-button:hover {
