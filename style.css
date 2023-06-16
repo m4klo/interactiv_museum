@@ -5,9 +5,20 @@ body {
   background-attachment: fixed; /* opcjonalnie */
   overflow: hidden;
 }
-#gallery {
-  height: 88vh; /* Ustaw maksymalną wysokość na 80% wysokości ekranu */
+#gallery.row.mb-10.gallery-container {
+  height: 80vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-bottom: 5%;
 }
 .navbar {
   font-family: 'Old Standard TT', serif;
+}
+.footer {
+  background-color: #f5f5f5;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

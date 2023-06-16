@@ -24,6 +24,10 @@ $(document).ready(function() {
         $("#myModal").fadeIn();
         $("#backButton").fadeIn();
         $("#myModal-wiki").empty().append(wikiButton);
+
+        $("#myModal-content").on("load", function() {
+            adjustModalImageSize();
+          });
     });
 
     // Funkcja obsługująca przycisk "Zamknij"
@@ -144,7 +148,15 @@ function prevPage() {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            generateGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocations);
+            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else if(width <= 720){
+                generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else {
+                generateGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
         }, 2000);
     }
 }
@@ -155,7 +167,15 @@ function nextPage(total) {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            generateGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocations);
+            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else if(width <= 720){
+                generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else {
+                generateGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
         }, 2000);
     }
 }

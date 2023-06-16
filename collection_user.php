@@ -24,7 +24,7 @@
                         <a class="nav-link" href="#">Zbiory muzeów narodowych</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav flex-row">
                     <li class="nav-item">
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#authorModal">Filtruj autora</button>
                     </li>
@@ -35,7 +35,7 @@
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#locationModal">Filtruj lokalizację</button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#registerModal">Zarejestruj</button>
+                        <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#registerModal">Zarejestruj kuratora</button>
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">Zaloguj się</button>
@@ -50,6 +50,8 @@
         let checkedAuthors=[];
         let checkedLocations=[];
         let checkedCenturies=[];
+        let width = $(window).width();
+        let height = $(document).height()-1250;
     </script>
 
     <!-- Modal for Author filter-->
@@ -82,7 +84,16 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="authorFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
+                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                            generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else if(width <= 720){
+                            generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else {
+                            generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                    });">Filtruj
                     </button>
                 </div>
             </div>
@@ -91,7 +102,7 @@
 
     <!-- Modal for Location filter-->
     <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable"">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="locationModalLabel">Wybierz lokalizacje</h5>
@@ -111,7 +122,16 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="locationFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
+                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                            generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else if(width <= 720){
+                            generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else {
+                            generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                    });">Filtruj
                     </button>
                 </div>
             </div>
@@ -119,7 +139,7 @@
     </div>
     <!-- Modal for Century filter-->
     <div class="modal fade" id="centuryModal" tabindex="-1" aria-labelledby="centuryModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable"">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="centuryModalLabel">Wybierz wiek</h5>
@@ -139,7 +159,16 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="centuryFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
+                        onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                            generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else if(width <= 720){
+                            generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else {
+                            generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                    });">Filtruj
                     </button>
                 </div>
             </div>
@@ -226,15 +255,26 @@
 
     
     <div class="container mt-5">
-    <div id="gallery" class="row mb-10">
+    <div id="gallery" class="row mb-10 gallery-container">
         <script>
+            console.log(height);
         $(document).ready(function() {
-            generateGallery(pageNum);
+            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else if(width <= 720){
+                generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else {
+                generateGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
         });
         </script>
     </div>
+
 </div>
-
-
+<footer class="footer">
+        <p>&copy; Wszystkie prawa zastrzeżone. Wykorzystanie zdjęć w celach edukacyjnych.</p>
+</footer>
 </body>
 </html>

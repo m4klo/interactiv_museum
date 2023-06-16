@@ -38,7 +38,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
                         <a class="nav-link" href="verification.php">Weryfikacja</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav flex-row">
                     <li class="nav-item">
                         <button class="btn btn-outline-secondary me-2" type="button" data-bs-toggle="modal" data-bs-target="#authorModal">Filtruj autora</button>
                     </li>
@@ -60,6 +60,8 @@ if ($_SESSION['location_id'] !== 'administrator') {
         let checkedAuthors=[];
         let checkedLocations=[];
         let checkedCenturies=[];
+        let width = $(window).width();
+        let height = $(document).height()-1250;
     </script>
 
     <!-- Modal for Author filter-->
@@ -84,8 +86,16 @@ if ($_SESSION['location_id'] !== 'administrator') {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="authorFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
-                    </button>
+                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                            generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else if(width <= 720){
+                            generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else {
+                            generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                    });">Filtruj</button>                    </button>
                 </div>
             </div>
         </div>
@@ -93,7 +103,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
 
     <!-- Modal for Location filter-->
     <div class="modal fade" id="locationModal" tabindex="-1" aria-labelledby="locationModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable"">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="locationModalLabel">Wybierz lokalizacje</h5>
@@ -113,15 +123,23 @@ if ($_SESSION['location_id'] !== 'administrator') {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="locationFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
-                    </button>
+                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                            generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else if(width <= 720){
+                            generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else {
+                            generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                    });">Filtruj</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal for Century filter-->
     <div class="modal fade" id="centuryModal" tabindex="-1" aria-labelledby="centuryModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable"">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="centuryModalLabel">Wybierz wiek powstania</h5>
@@ -141,8 +159,16 @@ if ($_SESSION['location_id'] !== 'administrator') {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
                     <button type="button" class="btn btn-primary" id="centuryFilterButton" 
-                        onclick="generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations))">Filtruj
-                    </button>
+                    onclick="if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                            generateMobileGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else if(width <= 720){
+                            generatePhoneGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                        else {
+                            generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+                        }
+                    });">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -166,15 +192,24 @@ if ($_SESSION['location_id'] !== 'administrator') {
     </div>
     
     <div class="container mt-5">
-    <div id="gallery" class="row mb-10">
+    <div id="gallery" class="row mb-10 gallery-container">
         <script>
         $(document).ready(function() {
-            generateGallery(pageNum);
+            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else if(width <= 720){
+                generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else {
+                generateGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
         });
         </script>
     </div>
 </div>
-
-
+<footer class="footer">
+        <p>&copy; Wszystkie prawa zastrzeżone. Wykorzystanie zdjęć w celach edukacyjnych.</p>
+</footer>
 </body>
 </html>

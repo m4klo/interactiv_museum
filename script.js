@@ -16,6 +16,40 @@ function generateGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocat
     });
 
 }
+function generateMobileGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocations) {
+    // Wysłanie zapytania AJAX do generate_mobile_gallery.php z wybranymi autorami, stylami oraz lokalizacjami jako dane POST
+    $.ajax({
+        url: 'generate_mobile_gallery.php',
+        type: 'POST',
+        data: {
+            selectedAuthors: checkedAuthors,
+            selectedcenturies: checkedCenturies,
+            selectedLocations: checkedLocations,
+            pageNum: pageNum
+        },
+        success: function(html) {
+            // Uaktualnienie zawartości galerii na stronie
+            $('#gallery').html(html);
+        }
+    });
+}
+function generatePhoneGallery(pageNum, checkedAuthors, checkedCenturies, checkedLocations) {
+    // Wysłanie zapytania AJAX do generate_mobile_gallery.php z wybranymi autorami, stylami oraz lokalizacjami jako dane POST
+    $.ajax({
+        url: 'generate_phone_gallery.php',
+        type: 'POST',
+        data: {
+            selectedAuthors: checkedAuthors,
+            selectedcenturies: checkedCenturies,
+            selectedLocations: checkedLocations,
+            pageNum: pageNum
+        },
+        success: function(html) {
+            // Uaktualnienie zawartości galerii na stronie
+            $('#gallery').html(html);
+        }
+    });
+}
 $(window).on('beforeunload', function() {
     $.ajax({
         type: 'GET',
@@ -73,7 +107,15 @@ function generatePageButtons(totalPages, currentPage) {
         animateGalleryTransition('animate-from-bottom');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function () {
-          generateGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                generateMobileGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else if(width <= 720){
+                generatePhoneGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else {
+                generateGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
           pageNum = pageNumber;
         }, 2000);
       }
@@ -97,7 +139,16 @@ function createEndButtons(sign, pageNumber, totalPages) {
           animateGalleryTransition('animate-from-bottom');
           animateButtonsTransition('animate-from-bottom');
           setTimeout(function () {
-            generateGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                generateMobileGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else if(width <= 720){
+                generatePhoneGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else {
+                generateGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+          pageNum = pageNumber;
             pageNum = 1;
           }, 2000);
         }
@@ -107,8 +158,16 @@ function createEndButtons(sign, pageNumber, totalPages) {
           animateGalleryTransition('animate-from-bottom');
           animateButtonsTransition('animate-from-bottom');
           setTimeout(function () {
-            generateGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
-            pageNum = totalPages;
+            if ((width <= 1000 && width > 720) || (width <= 720 && height < 700) ) {
+                generateMobileGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else if(width <= 720){
+                generatePhoneGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+            else {
+                generateGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
+            }
+          pageNum = totalPages;
           }, 2000);
         }
       }
@@ -235,4 +294,7 @@ function getVerificationTable(){
             $('#verification-table').html(response);
         }
     });
-}
+} 
+window.addEventListener('resize', function() {
+      location.reload();
+});
