@@ -295,8 +295,25 @@ function getVerificationTable(){
         }
     });
 } 
+let currentWidthNum = getScreenWidthNum();
+
 window.addEventListener('resize', function() {
-    if($(window).width()==1024 || $(window).width()==768 || $(window).width()==1440){
-      location.reload();
-    }
+  const newWidthNum = getScreenWidthNum();
+  
+  if (currentWidthNum !== newWidthNum) {
+    currentWidthNum = newWidthNum;
+    location.reload();
+  }
 });
+
+function getScreenWidthNum() {
+  const width = $(window).width();
+
+  if (width > 1024) {
+    return 3;
+  } else if (width <= 1024 && width > 768) {
+    return 2;
+  } else {
+    return 1;
+  }
+}

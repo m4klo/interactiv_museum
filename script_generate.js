@@ -24,10 +24,6 @@ $(document).ready(function() {
         $("#myModal").fadeIn();
         $("#backButton").fadeIn();
         $("#myModal-wiki").empty().append(wikiButton);
-
-        $("#myModal-content").on("load", function() {
-            adjustModalImageSize();
-          });
     });
 
     // Funkcja obsługująca przycisk "Zamknij"

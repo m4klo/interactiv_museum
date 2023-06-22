@@ -13,6 +13,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     <title>Zbiory muzeów narodowych</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="modal.css">
@@ -61,6 +62,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
         let checkedLocations=[];
         let checkedCenturies=[];
         let width = $(window).width();
+        let widthNum = 0;
     </script>
 
     <!-- Modal for Author filter-->
@@ -93,8 +95,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
                         }
                         else {
                             generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
-                        }
-                    });">Filtruj</button>                    </button>
+                        };">Filtruj</button>                    </button>
                 </div>
             </div>
         </div>
@@ -109,7 +110,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-search">
-                    <input type="text" id="searchInputLocation" class="form-control" placeholder="Wyszukaj autora" oninput="checkedLocations = getCheckedLocations(checkedLocations); 
+                    <input type="text" id="searchInputLocation" class="form-control" placeholder="Wyszukaj lokalizacje" oninput="checkedLocations = getCheckedLocations(checkedLocations); 
                     generateLocations(this.value, checkedLocations);">
                 </div>
                 <div class="modal-body" id="locationList">
@@ -130,8 +131,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
                         }
                         else {
                             generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
-                        }
-                    });">Filtruj</button>
+                        }">Filtruj</button>
                 </div>
             </div>
         </div>
@@ -145,7 +145,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-search">
-                    <input type="text" id="searchInputcentury" class="form-control" placeholder="Wyszukaj autora" oninput="checkedCenturies = getCheckedCenturies(checkedCenturies); 
+                    <input type="text" id="searchInputcentury" class="form-control" placeholder="Wyszukaj wiek" oninput="checkedCenturies = getCheckedCenturies(checkedCenturies); 
                     generateCenturies(this.value, checkedCenturies);">
                 </div>
                 <div class="modal-body" id="centuryList">
@@ -166,8 +166,7 @@ if ($_SESSION['location_id'] !== 'administrator') {
                         }
                         else {
                             generateGallery(pageNum=1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
-                        }
-                    });">Filtruj</button>
+                        }">Filtruj</button>
                 </div>
             </div>
         </div>
