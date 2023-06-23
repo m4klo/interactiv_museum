@@ -107,10 +107,10 @@ function generatePageButtons(totalPages, currentPage) {
         animateGalleryTransition('animate-from-bottom');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function () {
-            if (width <= 1024 && width > 768) {
+            if (width <= 1200 && width > 1024) {
                 generateMobileGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 768){
+            else if(width <= 1024){
                 generatePhoneGallery(pageNumber, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -139,10 +139,10 @@ function createEndButtons(sign, pageNumber, totalPages) {
           animateGalleryTransition('animate-from-bottom');
           animateButtonsTransition('animate-from-bottom');
           setTimeout(function () {
-            if (width <= 1024 && width > 768) {
+            if (width <= 1200 && width > 1024) {
                 generateMobileGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 768){
+            else if(width <= 1024){
                 generatePhoneGallery(1, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -158,10 +158,10 @@ function createEndButtons(sign, pageNumber, totalPages) {
           animateGalleryTransition('animate-from-bottom');
           animateButtonsTransition('animate-from-bottom');
           setTimeout(function () {
-            if (width <= 1024 && width > 768) {
+            if (width <= 1200 && width > 1024) {
                 generateMobileGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 768){
+            else if(width <= 1024){
                 generatePhoneGallery(totalPages, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -295,8 +295,25 @@ function getVerificationTable(){
         }
     });
 } 
+let currentWidthNum = getScreenWidthNum();
+
 window.addEventListener('resize', function() {
-    if($(window).width()==1024 || $(window).width()==768 || $(window).width()==1440){
-      location.reload();
-    }
+  const newWidthNum = getScreenWidthNum();
+  
+  if (currentWidthNum !== newWidthNum) {
+    currentWidthNum = newWidthNum;
+    location.reload();
+  }
 });
+
+function getScreenWidthNum() {
+  const width = $(window).width();
+
+  if (width > 1200) {
+    return 3;
+  } else if (width <= 1200 && width > 1024) {
+    return 2;
+  } else {
+    return 1;
+  }
+}

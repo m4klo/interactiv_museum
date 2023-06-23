@@ -119,8 +119,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 <div class="gallery-pagination animate-bottom">
     <div class="page-buttons-container">
-        <button class="prev-btn" onclick="prevPage()">Previous</button>
-        <button class="next-btn" onclick="nextPage(<?php echo $totalPages; ?>)">Next</button>
+        <button class="prev-btn" onclick="prevPage()">Poprzednia</button>
+        <button class="next-btn" onclick="nextPage(<?php echo $totalPages; ?>)">Następna</button>
     </div>
     <span id="pageButtonsContainer"></span>
 </div>

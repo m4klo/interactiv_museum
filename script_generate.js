@@ -24,10 +24,6 @@ $(document).ready(function() {
         $("#myModal").fadeIn();
         $("#backButton").fadeIn();
         $("#myModal-wiki").empty().append(wikiButton);
-
-        $("#myModal-content").on("load", function() {
-            adjustModalImageSize();
-          });
     });
 
     // Funkcja obsługująca przycisk "Zamknij"
@@ -148,10 +144,10 @@ function prevPage() {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            if (width <= 1024 && width > 768 ) {
+            if (width <= 1200 && width > 1024 ) {
                 generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 768){
+            else if(width <= 1024){
                 generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
@@ -167,10 +163,10 @@ function nextPage(total) {
         animateGalleryTransition('animate-from-left');
         animateButtonsTransition('animate-from-bottom');
         setTimeout(function() {
-            if (width <= 1024 && width > 768) {
+            if (width <= 1200 && width > 1024) {
                 generateMobileGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
-            else if(width <= 768){
+            else if(width <= 1024){
                 generatePhoneGallery(pageNum, getCheckedAuthors(checkedAuthors), getCheckedCenturies(checkedCenturies), getCheckedLocations(checkedLocations));
             }
             else {
