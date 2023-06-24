@@ -1,4 +1,4 @@
-# Interactive Museum
+# Interactive Museum - Bachelor's Thesis
 
 The Interactive Museum application is a web-based platform designed to showcase artworks from Polish museums. It leverages a combination of AJAX, PHP, and MySQL to deliver a seamless and dynamic user experience. The application incorporates responsive CSS design and utilizes the powerful Bootstrap framework for grid layouts.
 
@@ -35,6 +35,7 @@ The Interactive Museum application is a web-based platform designed to showcase 
   <img align="right" width="475px" src="https://github.com/m4klo/interactiv_museum/assets/101104327/3e7a98b1-81bd-407b-a2ee-6982af7688d7">
 </p>
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 **5. Secure Registration and Curator Moderation:** Our platform ensures a secure and trusted environment by implementing a user registration and login system. Curators, with their expertise and knowledge, play a vital role in moderating the content and ensuring its accuracy and authenticity. Through the registration process, curators can verify their identities and gain access to additional features that allow them to manage and curate the artworks showcased on the platform. This moderation system guarantees that the information and artworks presented on the website are reliable and provide users with a curated experience of art exploration.
 <p align="center">
