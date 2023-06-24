@@ -295,8 +295,6 @@ function getVerificationTable(){
         }
     });
 } 
-let currentWidthNum = getScreenWidthNum();
-
 window.addEventListener('resize', function() {
   const newWidthNum = getScreenWidthNum();
   
