@@ -31,8 +31,8 @@ The Interactive Museum application is a web-based platform designed to showcase 
 
 **4. Responsive Design:** The application boasts a responsive design, ensuring seamless usability across different devices and screen sizes. It is accessible on desktop computers, tablets, and mobile devices, allowing users to enjoy the full functionality of the application anytime, anywhere.
 <p>
-  <img align="left" width="397px" src="https://github.com/m4klo/interactiv_museum/assets/101104327/5cecafb2-6ae1-44b5-b29a-833060b049b8">
-  <img align="right" width="475px" src="https://github.com/m4klo/interactiv_museum/assets/101104327/3e7a98b1-81bd-407b-a2ee-6982af7688d7">
+  <img align="left" width="380px" src="https://github.com/m4klo/interactiv_museum/assets/101104327/5cecafb2-6ae1-44b5-b29a-833060b049b8">
+  <img align="right" width="456px" src="https://github.com/m4klo/interactiv_museum/assets/101104327/3e7a98b1-81bd-407b-a2ee-6982af7688d7">
 </p>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
