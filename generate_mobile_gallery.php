@@ -126,7 +126,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 </div>
 
 <script>
-    // Sprawdź, czy zmienna "total" już istnieje
     if (typeof total === 'undefined' || total === null) {
         let total = <?php echo $totalPages; ?>;
         console.log(total);

@@ -2,7 +2,6 @@
 session_start();
 
 if ($_SESSION['location_id'] !== 'administrator') {
-    // Przekieruj użytkownika na inną stronę lub wyświetl komunikat o braku dostępu
     header('Location: collection_user.php');
     exit;
 }

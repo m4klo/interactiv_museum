@@ -11,18 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = mysqli_query($conn, $query);
 
         if ($result) {
-            // Zwrotka sukcesu
             echo 'Kurator został odrzucony.';
         } else {
-            // Zwrotka błędu
             echo 'Wystąpił błąd podczas odrzucania kuratora.';
         }
     } else {
-        // Zwrotka błędu - brak przesłanego identyfikatora kuratora
         echo 'Nieprawidłowe żądanie.';
     }
 } else {
-    // Zwrotka błędu - niepoprawna metoda żądania
     echo 'Nieprawidłowe żądanie.';
 }
 ?>

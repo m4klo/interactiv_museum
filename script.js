@@ -53,8 +53,8 @@ function generatePhoneGallery(pageNum, checkedAuthors, checkedCenturies, checked
 $(window).on('beforeunload', function() {
     $.ajax({
         type: 'GET',
-        url: 'logout.php', // Twój skrypt PHP, który wywołuje session_destroy()
-        async: false // Zatrzymuje wykonywanie skryptu, aż zostanie zakończone żądanie AJAX
+        url: 'logout.php',
+        async: false
     });
 });
 
@@ -183,7 +183,6 @@ function generateAuthors(searchTerm, checkedAuthors) {
         type: 'GET',
         data: { search: searchTerm, checkedAuthors: checkedAuthors },
         success: function(response) {
-            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
             $('#authorList').html(response);
         }
     });
@@ -195,7 +194,6 @@ function generateCenturies(searchTerm, checkedCenturies) {
         type: 'GET',
         data: { search: searchTerm, checkedCenturies: checkedCenturies },
         success: function(response) {
-            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
             $('#centuryList').html(response);
         }
     });
@@ -207,7 +205,6 @@ function generateLocations(searchTerm, checkedLocations) {
         type: 'GET',
         data: { search: searchTerm, checkedLocations: checkedLocations },
         success: function(response) {
-            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
             $('#locationList').html(response);
         }
     });
@@ -219,12 +216,10 @@ function getCheckedAuthors(checkedAuthors) {
         const authorIndex = checkedAuthors.indexOf(authorId);
 
         if ($(this).is(':checked')) {
-            // Dodaj autora do listy, jeśli jeszcze go tam nie ma
             if (authorIndex === -1) {
                 checkedAuthors.push(authorId);
             }
         } else {
-            // Usuń autora z listy, jeśli jest na liście
             if (authorIndex !== -1) {
                 checkedAuthors.splice(authorIndex, 1);
             }
@@ -240,12 +235,10 @@ function getCheckedCenturies(checkedCenturies) {
         const centuryIndex = checkedCenturies.indexOf(centuryId);
 
         if ($(this).is(':checked')) {
-            // Dodaj autora do listy, jeśli jeszcze go tam nie ma
             if (centuryIndex === -1) {
                 checkedCenturies.push(centuryId);
             }
         } else {
-            // Usuń autora z listy, jeśli jest na liście
             if (centuryIndex !== -1) {
                 checkedCenturies.splice(centuryIndex, 1);
             }
@@ -261,12 +254,10 @@ function getCheckedLocations(checkedLocations) {
         const locationIndex = checkedLocations.indexOf(locationId);
 
         if ($(this).is(':checked')) {
-            // Dodaj autora do listy, jeśli jeszcze go tam nie ma
             if (locationIndex === -1) {
                 checkedLocations.push(locationId);
             }
         } else {
-            // Usuń autora z listy, jeśli jest na liście
             if (locationIndex !== -1) {
                 checkedLocations.splice(locationIndex, 1);
             }
@@ -280,7 +271,6 @@ function getLocations(){
         type: 'GET',
         url: 'generate_register_locations.php',
         success: function(response) {
-            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
             $('#register_location').html(response);
         }
     });
@@ -290,11 +280,12 @@ function getVerificationTable(){
         type: 'GET',
         url: 'generate_verification_table.php',
         success: function(response) {
-            // Zaktualizuj zawartość okna modalnego zwróconą przez plik generate_authors.php
             $('#verification-table').html(response);
         }
     });
 } 
+let currentWidthNum = getScreenWidthNum();
+
 window.addEventListener('resize', function() {
   const newWidthNum = getScreenWidthNum();
   

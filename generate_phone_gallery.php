@@ -67,7 +67,6 @@ $query .= " LIMIT $resultsPerPage OFFSET $offset";
 // Wykonaj zapytanie do bazy danych i pobierz wyniki
 $result = mysqli_query($conn, $query);
 
-// Store the photo paths in an array
 $photos = array();
 while ($row = mysqli_fetch_assoc($result)) {
     $id= $row['id'];
@@ -86,8 +85,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         // generuj kod HTML z obrazkami
         shuffle($photos); // losowo mieszamy tablicę zdjęć
         $photoIndex = 0;
-        for ($i = 0; $i < 2; $i++) { // Zmieniono warunek z $i < 3 na $i < 2
-        echo '<div class="col-md-6 col-sm-6 col-12">'; // Zmieniono col-md-4 na col-md-6
+        for ($i = 0; $i < 2; $i++) {
+        echo '<div class="col-md-6 col-sm-6 col-12">';
         for ($j = 0; $j < 6; $j++) {
             if ($photoIndex >= count($photos)) break;
             $photo = $photos[$photoIndex];

@@ -78,12 +78,10 @@ $(document).ready(function() {
             author: updatedAuthor
           },
           success: function(response) {
-            // Obsługa sukcesu (opcjonalnie)
             console.log("Dane zostały zaktualizowane.");
             $("#edit-button").data("changed", "true");
           },
           error: function(xhr, status, error) {
-            // Obsługa błędu (opcjonalnie)
             console.error("Wystąpił błąd podczas aktualizacji danych: " + error);
           }
         });
