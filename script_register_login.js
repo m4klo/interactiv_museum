@@ -20,6 +20,7 @@ function register(){
         },
         success: function(data) {
             console.log('Pomyślnie zarejestrowano użytkownika');
+            alert("Użytkownik został dodany do weryfikacji");
         },
         error: function(xhr, status, error) {
             console.log('Wystąpił błąd podczas rejestracji użytkownika');
@@ -40,7 +41,7 @@ function login() {
     const password = $('#password').val();
     const isAdmin = $('#adminCheckbox').is(':checked');
 
-    console.log(isAdmin); // Dodaj ten console.log
+    console.log(isAdmin);
 
     $.ajax({
         

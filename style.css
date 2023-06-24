@@ -33,80 +33,53 @@ body {
   height: 100%;
 }
 @media (max-width: 1024px) {
-  button.btn.btn-outline-secondary.me-2{
-    font-size:30px;
+  .navbar{
+    height:7vh;
+    font-size:32px;
   }
   a.navbar-brand{
     font-size:32px;
-    padding: 10px;
   }
-  #searchInputcentury{
-    padding: 15px;
-    font-size: 52px;
+  input[type="text"] {
+    font-size:52px;
   }
-  #searchInputLocation{
-    padding: 15px;
-    font-size: 52px;
+  input[type="password"] {
+    font-size:52px;
   }
-  #searchInputAuthor {
-    padding: 15px;
-    font-size: 52px;
+  input[type="email"] {
+    font-size:52px;
   }
-  .form-check{
-    font-size: 52px;
+  input[type="button"] {
+    font-size:42px;
   }
-  .modal-header {
-    font-size: 52px;
+  #register_location{
+    font-size:42px;
   }
   .modal-title{
     font-size:32px;
   }
-  #loginModal > div > div > div.modal-body > form > div.mb-3.form-check{
-    font-size:42px;
+  .modal-body{
+    font-size: 47px;
   }
   .modal.fade .modal-dialog {
-    width: 90vw; /* 90% szerokości viewportu */
-    max-width: 90vw; /* Ograniczenie maksymalnej szerokości do 90% viewportu */
+    width: 90vw;
+    max-width: 90vw;
     margin: auto;
     font-size: xx-large;
   }
   button.btn{
-    font-size: 52px;
+    font-size: 42px;
   }
-  #loginModal > div > div > div.modal-body > form > input{
-    font-size: 52px;
+  a.btn.btn-primary{
+    font-size: 42px;
   }
-  #register_username{
-    font-size: 32px;
+  button.btn.btn-secondary{
+    font-size: 42px;
   }
-  #register_surname{
-    font-size: 32px;
+  button.btn.btn-secondary{
+    font-size: 42px;
   }
-  #register_name{
-    font-size: 32px;
-  }
-  #register_email{
-    font-size: 32px;
-  }
-  #register_password{
-    font-size: 32px;
-  }
-  #register_location{
-    font-size: 32px;
-  }
-  #username{
-    font-size: 32px;
-  }
-  #password{
-    font-size: 32px;
-  }
-  a.nav-link{
-    font-size: 24px;
-  }
-  #username{
-    font-size: 32px;
-  }
-  #password{
+  .modal-footer{
     font-size: 32px;
   }
 }

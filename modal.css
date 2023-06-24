@@ -85,9 +85,13 @@
     #myModal-wiki {
         background-color: rgba(0, 0, 0, 0.6);
     }
+    #edit-button {
+        top: 93%;
+        right: 70%;
+        font-size: 52px;
+      }
    
 }
-
 @media (min-width: 1440px) {
     #myModal-content {
         position: absolute;
